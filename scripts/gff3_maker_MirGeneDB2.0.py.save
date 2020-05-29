@@ -1,0 +1,73 @@
+from Bio import SeqIO
+
+# naive exact-matching alignment for start and end
+def coorstart(p, t):
+	start = []
+	for i in range(len(t) - len(p) + 1):
+		match = True
+		for j in range(len(p)):
+			if not t[i+j] == p[j]:
+				match = False
+				break
+		if match:
+			start.append(i)
+	return int(start[0]+1)
+def coorend(p, t):
+	end = []
+	for i in range(len(t) - len(p) + 1):
+		match = True
+		for j in range(len(p)):
+			if not t[i+j] == p[j]:
+				match = False
+				break
+		if match:
+			end.append(i+len(p))
+	return int(end[0]+1)
+	
+# open gff3 file
+gff3_file = open('/home/jcdenton/projects/mirna_pipeline/data/mirna_reference/hsa_mature.2.0.gff3', 'w')
+gff3_file.write('##gff-version 3')
+gff3_file.write('\n')
+
+# write to gff3 file
+count = 0
+for pri_mirna in SeqIO.parse("/home/jcdenton/projects/mirna_pipeline/data/mirna_reference/hsa-hg38-pri-30-30.2.8.fas", "fasta"):
+	for mature_star in SeqIO.parse("/home/eirik/Dropbox/comet_analysis/data/MIRGENEDB_HSA_MATURES_2.8.fas", "fasta"):
+		if mature_star.id[-1] != '*':
+			mature_star.id += ' '
+		ID = mature_star.id.split('-')	
+		n = 0
+		is_multiple = False
+		for section in ID:
+			n += 1
+			if section.startswith('P') and not section.endswith('p '):
+				ID_Uniq = section
+				is_multiple = True
+				break
+		if is_multiple == True:
+			ID_query = '-'.join(ID[:n])
+		else:
+			ID_query = ''
+
+		if mature_star.id[:-4] == pri_mirna.id[:-4] or ID_query == pri_mirna.id[:-4]:
+			count += 1
+			gff3_file.write(pri_mirna.id)
+			gff3_file.write('\t')
+			gff3_file.write('.')
+			gff3_file.write('\t')
+			gff3_file.write('miRNA')
+			gff3_file.write('\t')
+			gff3_file.write(str(coorstart(str(mature_star.seq).replace('U','T'),pri_mirna)))
+			gff3_file.write('\t')
+			gff3_file.write(str(coorend(str(mature_star.seq).replace('U','T'), pri_mirna)))
+			gff3_file.write('\t')
+			gff3_file.write('.')
+			gff3_file.write('\t')
+			gff3_file.write('+')
+			gff3_file.write('\t')
+			gff3_file.write('.')
+			gff3_file.write('\t')
+			gff3_file.write('ID=')
+			gff3_file.write(str(mature_star.id))
+			gff3_file.write('\n')
+print(count)
