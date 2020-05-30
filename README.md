@@ -6,17 +6,22 @@ A reproducible pipeline for the integration of public repositories of smallRNA-s
 
 ## Getting started
 
-### Prerequisites
+### Dependencies
+bowtie=1.2.3
+biopython
+samtools
+mirtrace
+fastx-toolkit
+bioconductor-rsubread
 
+### Installing
 ```
 conda env create -f environment.yml
 ```
 
-### Installing
-
 ### Usage
 ```
-bash scripts/create_mirtrace_config.sh
+bash scripts/create_mirtrace_config.sh <path/to/fastq_files> <name> <adapter_sequence>
 bash scripts/run_mirtrace.sh <path/to/config_file>
 bash scripts/bowtie_mirgenedb_human_fastafiles.sh
 Rscript scripts/featureCounts.R
