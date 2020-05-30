@@ -28,11 +28,19 @@ conda env create -f environment.yml
 
 ### Usage
 ```
-bash scripts/create_mirtrace_config.sh <path/to/fastq_files> <name> <adapter_sequence>
-bash scripts/run_mirtrace.sh <path/to/config_file>
-bash scripts/bowtie_mirgenedb_human_fastafiles.sh
-Rscript scripts/featureCounts.R
+bash run_pipeline.sh <sample_info.tsv>
 
 ```
 
+### Tutorial
+```
+# First create conda environment with (should only be done once):
+conda env create -f environment.yml
 
+# then activate environment with (needs to be done for each new terminal session):
+conda activate miRNA_pipeline
+
+# To try the pipeline, use the tutorial fastq files and tutorial_sample_info.tsv with:
+bash run_pipeline.sh tutorial_sample_info.tsv
+
+```
