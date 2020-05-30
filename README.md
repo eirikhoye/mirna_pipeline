@@ -16,7 +16,9 @@ conda env create -f environment.yml
 
 ### Usage
 ```
+bash scripts/create_mirtrace_config.sh
 bash scripts/run_mirtrace.sh <path/to/config_file>
-bash 
+bash scripts/bowtie_mirgenedb_human_fastafiles.sh
+Rscript scripts/featureCounts.R
 
 ```
