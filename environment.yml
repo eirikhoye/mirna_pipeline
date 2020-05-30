@@ -2,8 +2,11 @@ name: miRNA_pipeline
 channels:
 - bioconda
 - conda-forge
+- biobuilds
 dependencies:
   - bowtie=1.2.3
   - biopython
   - samtools
   - mirtrace
+  - fastx-toolkit
+  - bioconductor-rsubread
