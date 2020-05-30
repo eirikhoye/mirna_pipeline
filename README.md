@@ -3,6 +3,8 @@ A reproducible pipeline for the integration of public repositories of smallRNA-s
 
 ![Pipeline Flowchart](/images/Pipeline_Flowchart.png)
 
+Quality Control with miRTrace
+![miRTrace logo](/images/miRTrace.png)
 
 ## Getting started
 
@@ -28,3 +30,5 @@ bash scripts/bowtie_mirgenedb_human_fastafiles.sh
 Rscript scripts/featureCounts.R
 
 ```
+
+
