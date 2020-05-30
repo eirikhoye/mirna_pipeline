@@ -10,3 +10,4 @@ dependencies:
   - mirtrace
   - fastx-toolkit
   - bioconductor-rsubread
+  - pandas
