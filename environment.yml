@@ -1,0 +1,9 @@
+name: miRNA_pipeline
+channels:
+- bioconda
+- conda-forge
+dependencies:
+  - bowtie=1.2.3
+  - biopython
+  - samtools
+  - mirtrace
