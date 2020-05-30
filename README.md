@@ -9,8 +9,14 @@ A reproducible pipeline for the integration of public repositories of smallRNA-s
 ### Prerequisites
 
 ```
-
+conda env create -f environment.yml
 ```
 
 ### Installing
 
+### Usage
+```
+bash scripts/run_mirtrace.sh <path/to/config_file>
+bash 
+
+```
