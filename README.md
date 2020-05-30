@@ -5,7 +5,7 @@ A reproducible pipeline for the integration of public repositories of smallRNA-s
 
 Quality Control and read processing with miRTrace
 ![miRTrace logo](/images/miRTrace.png)
-Kang W; Eldfjell Y; Fromm B; Estivill X; Biryukova I; Friedländer MR, 2018. miRTrace reveals the organismal origins of microRNA sequencing data. Genome Biol 19(1):213
+> Kang W; Eldfjell Y; Fromm B; Estivill X; Biryukova I; Friedländer MR, 2018. miRTrace reveals the organismal origins of microRNA sequencing data. Genome Biol 19(1):213
 
 
 ## Getting started
