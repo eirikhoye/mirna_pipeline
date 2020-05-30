@@ -7,12 +7,12 @@ A reproducible pipeline for the integration of public repositories of smallRNA-s
 ## Getting started
 
 ### Dependencies
-bowtie=1.2.3
-biopython
-samtools
-mirtrace
-fastx-toolkit
-bioconductor-rsubread
+bowtie=1.2.3\n
+biopython\n
+samtools\n
+mirtrace\n
+fastx-toolkit\n
+bioconductor-rsubread\n
 
 ### Installing
 ```
