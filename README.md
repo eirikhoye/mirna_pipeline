@@ -16,12 +16,30 @@ bioconductor-rsubread
 ```
 ### Installing
 ```
+# install miRTrace
 conda env create -f environment.yml
+
+# Install miRge3.0
+# follow instructions here for relevant OS: https://mirge3.readthedocs.io/en/latest/installation.html
+# and make sure dependencies are installed (python=3.7 and r)
+
+# Then install mirge3.0 in a new conda environment to avoid conflicts:
+conda create --name mirge3
+conda activate mirge3
+conda install -c bioconda mirge3
+
+#(install from .yml file did not work)
+
 ```
 
 ### Usage
 ```
-bash run_pipeline.sh <sample_info.tsv>
+# create miRTrace report:
+bash run_mirtrace.sh config
+
+
+# run mirge3.0
+bash run_mirge3.sh filepaths.txt
 
 ```
 
