@@ -1,5 +1,5 @@
-data/fastq/tutorial/M12_1.fastq.gz,M12,TGGAATTC
-data/fastq/tutorial/M18.fastq.gz,M18,TGGAATTC
-data/fastq/tutorial/M19.fastq.gz,M19,TGGAATTC
-data/fastq/tutorial/SRR1646483.fastq.gz,SRR1646483,CGCCTTGG
-data/fastq/tutorial/SRR837826.fastq.gz,SRR837826,TCGTATGC
+data/fastq/sub_M12_1.fq.gz,M12,TGGAATTC
+data/fastq/sub_M18.fq.gz,M18,TGGAATTC
+data/fastq/sub_M19.fq.gz,M19,TGGAATTC
+data/fastq/sub_SRR1646483.fastq.gz,SRR1646483,CGCCTTGG
+data/fastq/sub_SRR837850.fastq.gz,SRR837826,TCGTATGC
