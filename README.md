@@ -81,8 +81,6 @@ Sequencing data should also be checked for contamination. miRTrace can detect wh
 
 Here we also see that the 4th sample has a major contamination of Bird/Reptile miRNA reads. Shuch a dataset should certainly not be used in analysing human disease!
 
-```
-
 Using miRge3.0 to align reads to MirGeneDB2.0
 ```
 # start conda environment
