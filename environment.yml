@@ -11,4 +11,3 @@ dependencies:
   - fastx-toolkit
   - bioconductor-rsubread
   - pandas
-  - mirge3
