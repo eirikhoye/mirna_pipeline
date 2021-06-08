@@ -1,11 +1,11 @@
-# Analysis pipeline for "A microRNA Signature of Metastatic Colorectal Cancer"
+## Analysis pipeline for "A microRNA Signature of Metastatic Colorectal Cancer"
 A reproducible analysis pipeline for the manuscript "A microRNA Signature of Metastatic Colorectal Cancer" by Høye et al.
 
 Integrates both public repositories and own smallRNA-seq data. Quality control with the expertly developed [miRTrace](https://github.com/friedlanderlab/mirtrace) quality control and contamination detection pipeline. Data processing and read alignment with [miRge3.0](https://github.com/mhalushka/miRge3.0), using our curated database [MirGeneDB](https://mirgenedb.org/) as a high quality miRNA gene reference. miRge3.0 count matrixe used for downstream analysis, including data exploration such with UMAP, differential expression analysis with DESeq2 and inference of bulk tissue cell composition with known cell marker miRNA.
 
 ![Pipeline Flowchart](/images/Pipeline_Flowchart2.png)
 
-## Dependencies
+### Dependencies
 ```
 bowtie=1.2.3
 biopython
@@ -14,7 +14,7 @@ mirtrace
 fastx-toolkit
 bioconductor-rsubread
 ```
-## Installing
+### Installing
 ```
 # install miRTrace
 conda env create -f environment.yml
@@ -29,7 +29,7 @@ conda activate mirge3
 conda install -c bioconda mirge3
 ```
 
-## Usage
+### Usage
 ```
 # create miRTrace report:
 bash run_mirtrace.sh config
