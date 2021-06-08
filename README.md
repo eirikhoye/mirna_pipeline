@@ -5,7 +5,7 @@ Integrates both public repositories and own smallRNA-seq data. Quality control w
 
 ![Pipeline Flowchart](/images/Pipeline_Flowchart2.png)
 
-### Dependencies
+## Dependencies
 ```
 bowtie=1.2.3
 biopython
@@ -14,7 +14,7 @@ mirtrace
 fastx-toolkit
 bioconductor-rsubread
 ```
-### Installing
+## Installing
 ```
 # install miRTrace
 conda env create -f environment.yml
@@ -29,7 +29,7 @@ conda activate mirge3
 conda install -c bioconda mirge3
 ```
 
-### Usage
+## Usage
 ```
 # create miRTrace report:
 bash run_mirtrace.sh config
@@ -39,8 +39,8 @@ bash run_mirge3.sh filepaths.txt
 
 ```
 
-### Tutorial
-
+## Tutorial
+### miRTrace
 Assessing read quality with miRTrace
 ```
 # First create conda environment with (should only be done once):
@@ -80,6 +80,8 @@ Sequencing data should also be checked for contamination. miRTrace can detect wh
 ![Read Contamination](/images/mirtrace-contamination-plot.png)
 
 Here we also see that the 4th sample has a major contamination of Bird/Reptile miRNA reads. Shuch a dataset should certainly not be used in analysing human disease!
+
+### miRge3.0
 
 Using miRge3.0 to align reads to MirGeneDB2.0
 ```
