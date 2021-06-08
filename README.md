@@ -34,7 +34,6 @@ conda install -c bioconda mirge3
 # create miRTrace report:
 bash run_mirtrace.sh config
 
-
 # run mirge3.0
 bash run_mirge3.sh filepaths.txt
 
