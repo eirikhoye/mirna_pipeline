@@ -66,12 +66,29 @@ bash run_mirtrace.sh config
 Check to see if the quality of reads are above thresholds:
 It is important for miRNA data that the sequencing has been size selected, otherwise reads from other RNA types will be present.
 ![Read Length](/images/mirtrace-length-plot.png)
+
 Above 4 out of 5 samples had acceptable read length distribution, but one has a large number of reads in the piRNA range (~ 30nt) and none in the miRNA range (~18-26nt). 
 
+smallRNA-seq datasets should have a majority of reads belonging to miRNA:
+
+![RNA Type](/images/mirtrace-rnatype-plot.png)
+
+Not surprisingly, in the 5th sample, which did not have any reads in the miRNA length range, no miRNA reads were detected.
+
 Sequencing data should also be checked for contamination. miRTrace can detect which clade a miRNA read maps to:
+
 ![Read Contamination](/images/mirtrace-contamination-plot.png)
 
-
+Here we also see that the 4th sample has a major contamination of Bird/Reptile miRNA reads. Shuch a dataset should certainly not be used in analysing human disease.
 
 
 ```
+
+
+
+
+
+
+
+
+
