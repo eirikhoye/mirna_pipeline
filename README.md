@@ -67,9 +67,9 @@ Check to see if the quality of reads are above thresholds:
 It is important for miRNA data that the sequencing has been size selected, otherwise reads from other RNA types will be present.
 ![Read Length](/images/mirtrace-length-plot.png)
 
-Above 4 out of 5 samples had acceptable read length distribution, but one has a large number of reads in the piRNA range (~ 30nt) and none in the miRNA range (~18-26nt). 
+Above 4 out of 5 samples had acceptable read length distribution, but SRR837826 has a large number of reads in the piRNA range (~ 30nt) and none in the miRNA range (~18-26nt). 
 
-smallRNA-seq datasets should have a majority of reads belonging to miRNA:
+smallRNA-seq datasets should have a majority of reads in the miRNA length range:
 
 ![RNA Type](/images/mirtrace-rnatype-plot.png)
 
@@ -79,12 +79,24 @@ Sequencing data should also be checked for contamination. miRTrace can detect wh
 
 ![Read Contamination](/images/mirtrace-contamination-plot.png)
 
-Here we also see that the 4th sample has a major contamination of Bird/Reptile miRNA reads. Shuch a dataset should certainly not be used in analysing human disease.
-
+Here we also see that the 4th sample has a major contamination of Bird/Reptile miRNA reads. Shuch a dataset should certainly not be used in analysing human disease!
 
 ```
 
+Using miRge3.0 to align reads to MirGeneDB2.0
+```
+# start conda environment
+conda activate mirge3
 
+# create a text file with paths to fastq files, for example:
+data/fastq/sub_M12_1.fq.gz
+data/fastq/sub_M18.fq.gz
+data/fastq/sub_M19.fq.gz
+data/fastq/sub_SRR1646483.fastq.gz
+data/fastq/sub_SRR837850.fastq.gz
+
+# run the mirge3.0, for instance with the script run_mirge3.sh, or read documentation for more customisation: https://mirge3.readthedocs.io/en/latest/
+bash scripts/run_mirge3.sh filepaths.txt
 
 
 
