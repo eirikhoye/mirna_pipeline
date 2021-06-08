@@ -27,9 +27,6 @@ conda env create -f environment.yml
 conda create --name mirge3
 conda activate mirge3
 conda install -c bioconda mirge3
-
-#(install from .yml file did not work)
-
 ```
 
 ### Usage
