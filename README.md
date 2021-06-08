@@ -79,6 +79,7 @@ bash run_mirtrace.sh config
 
 Check to see if the quality of reads are above thresholds:
 It is important for miRNA data that the sequencing has been size selected, otherwise reads from other RNA types will be present.
+
 ![Read Length](/images/mirtrace-length-plot.png)
 
 Above 4 out of 5 samples had acceptable read length distribution, but SRR837826 has a large number of reads in the piRNA range (~ 30nt) and none in the miRNA range (~18-26nt). 
