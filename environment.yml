@@ -1,4 +1,4 @@
-name: miRNA_pipeline
+name: mirtrace
 channels:
 - bioconda
 - conda-forge
