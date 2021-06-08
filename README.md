@@ -96,14 +96,16 @@ data/fastq/sub_M19.fq.gz
 data/fastq/sub_SRR1646483.fastq.gz
 data/fastq/sub_SRR837850.fastq.gz
 
-# run the mirge3.0, for instance with the script run_mirge3.sh, 
+# run the mirge3.0 with, for instance, the script run_mirge3.sh, 
 # or read documentation for more customisation: https://mirge3.readthedocs.io/en/latest/
 # miRge3.0 -s $1 -lib miRge3_Lib -on human -db mirgenedb -o output_dir -tcf -cpu 4 -a illumina
 
 bash scripts/run_mirge3.sh filepaths.txt
 
-
-
+# output
+counts: data/mirge3_output/<date_time>/miR.RPM.csv
+RPM: data/mirge3_output/<date_time>/miR.Counts.csv
+```
 
 
 
