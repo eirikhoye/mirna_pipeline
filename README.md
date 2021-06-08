@@ -40,6 +40,8 @@ bash run_mirge3.sh filepaths.txt
 ```
 
 ### Tutorial
+
+Assessing read quality with miRTrace
 ```
 # First create conda environment with (should only be done once):
 conda env create -f environment.yml
@@ -47,7 +49,28 @@ conda env create -f environment.yml
 # then activate environment with (needs to be done for each new terminal session):
 conda activate miRNA_pipeline
 
-# To try the pipeline, use the tutorial fastq files and tutorial_sample_info.tsv with:
-bash run_pipeline.sh tutorial_sample_info.tsv
+# Set up a config file like this for the tutorial files in this repository:
+data/fastq/sub_M12_1.fq.gz,M12,TGGAATTC
+data/fastq/sub_M18.fq.gz,M18,TGGAATTC
+data/fastq/sub_M19.fq.gz,M19,TGGAATTC
+data/fastq/sub_SRR1646483.fastq.gz,SRR1646483,CGCCTTGG
+data/fastq/sub_SRR837850.fastq.gz,SRR837826,TCGTATGC
+# (The last column is adapter sequence used for sequencing.)
+
+# Create miRTrace QC and contamination report:
+bash run_mirtrace.sh config
+
+# This will create a report in data/mirtrace_out/<date_time>/mirtrace-report.html
+```
+
+Check to see if the quality of reads are above thresholds:
+It is important for miRNA data that the sequencing has been size selected, otherwise reads from other RNA types will be present.
+
+![Read Length](/images/mirtrace-length-plot.png)
+
+
+
+
+
 
 ```
