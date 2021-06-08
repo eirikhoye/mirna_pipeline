@@ -69,7 +69,7 @@ It is important for miRNA data that the sequencing has been size selected, other
 Above 4 out of 5 samples had acceptable read length distribution, but one has a large number of reads in the piRNA range (~ 30nt) and none in the miRNA range (~18-26nt). 
 
 Sequencing data should also be checked for contamination. miRTrace can detect which clade a miRNA read maps to:
-![Read Contamination](/images/mirtrace-complexity-plot.png)
+![Read Contamination](/images/mirtrace-contamination-plot.png)
 
 
 
