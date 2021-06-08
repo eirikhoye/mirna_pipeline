@@ -41,6 +41,15 @@ bash run_mirge3.sh filepaths.txt
 ```
 
 ## Tutorial
+
+A tutorial on how to QC control, process and align raw sequencing data (FASTQ) using the five tutorial files found in data/fastq/
+```
+data/fastq/sub_M12_1.fq.gz
+data/fastq/sub_M18.fq.gz
+data/fastq/sub_M19.fq.gz
+data/fastq/sub_SRR1646483.fastq.gz
+data/fastq/sub_SRR837850.fastq.gz
+```
 ### miRTrace
 Assessing read quality with miRTrace
 ```
