@@ -57,21 +57,17 @@ git clone https://github.com/eirikhoye/mirna_pipeline
 ### miRTrace
 Assessing read quality with miRTrace
 ```
-# First create conda environment with (should only be done once):
-conda env create -f environment.yml
+# First activate mirtrace environment:
+conda activate mirtrace
 
-# then activate environment with (needs to be done for each new terminal session):
-conda activate miRNA_pipeline
-
-# Set up a config file like this for the tutorial files in this repository:
+# Set up a config file, like similar to example below: (first column is path to file, second is sample name, third is adapter sequence)
 data/fastq/sub_M12_1.fq.gz,M12,TGGAATTC
 data/fastq/sub_M18.fq.gz,M18,TGGAATTC
 data/fastq/sub_M19.fq.gz,M19,TGGAATTC
 data/fastq/sub_SRR1646483.fastq.gz,SRR1646483,CGCCTTGG
 data/fastq/sub_SRR837850.fastq.gz,SRR837826,TCGTATGC
-# (The last column is adapter sequence used for sequencing.)
 
-# Create miRTrace QC and contamination report:
+# Run miRTrace to make QC and contamination report:
 bash run_mirtrace.sh config
 
 # This will create a report in data/mirtrace_out/<date_time>/mirtrace-report.html
