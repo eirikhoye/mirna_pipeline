@@ -20,7 +20,7 @@ bioconductor-rsubread
 conda env create -f environment.yml
 
 # Install miRge3.0
-# follow instructions here for relevant OS: https://mirge3.readthedocs.io/en/latest/installation.html
+# Read instructions here for relevant OS: https://mirge3.readthedocs.io/en/latest/installation.html
 # and make sure dependencies are installed (python=3.7 and r)
 
 # Then install mirge3.0 in a new conda environment to avoid conflicts:
