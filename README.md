@@ -26,6 +26,9 @@ conda env create -f environment.yml
 conda create --name mirge3
 conda activate mirge3
 conda install -c bioconda mirge3
+
+# Also install bowtie, samtools and RNAfold following instructions from: https://mirge3.readthedocs.io/en/latest/installation.html
+
 ```
 
 ### Usage
