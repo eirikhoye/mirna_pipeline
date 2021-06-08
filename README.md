@@ -5,15 +5,6 @@ Integrates both public repositories and own smallRNA-seq data. Quality control w
 
 ![Pipeline Flowchart](/images/Pipeline_Flowchart2.png)
 
-Quality Control and read processing with miRTrace
-![miRTrace logo](/images/miRTrace.png)
-
-> Kang W; Eldfjell Y; Fromm B; Estivill X; Biryukova I; Friedländer MR, 2018. miRTrace reveals the organismal origins of microRNA sequencing data. Genome Biol 19(1):213 [miRTrace](https://github.com/friedlanderlab/mirtrace)
-
-
-
-## Getting started
-
 ### Dependencies
 ```
 bowtie=1.2.3
