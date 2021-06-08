@@ -13,6 +13,7 @@ samtools
 mirtrace
 fastx-toolkit
 bioconductor-rsubread
+mirge3.0
 ```
 ### Installing
 ```
