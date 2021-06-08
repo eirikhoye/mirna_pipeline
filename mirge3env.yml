@@ -1,0 +1,5 @@
+name: test_mirge3
+channels:
+ - bioconda
+dependencies:
+ - mirge3
