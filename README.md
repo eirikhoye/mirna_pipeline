@@ -20,15 +20,9 @@ conda env create -f environment.yml
 
 # Install miRge3.0
 # Read instructions here for relevant OS: https://mirge3.readthedocs.io/en/latest/installation.html
-# and make sure dependencies are installed (python=3.7 and r)
+# and make sure dependencies are installed (python=3.7 and r) and bowtie, samtools and RNAfold
 
-# Then install mirge3.0 in a new conda environment to avoid conflicts:
-conda create --name mirge3
-conda activate mirge3
 conda install -c bioconda mirge3
-
-# Also install bowtie, samtools and RNAfold following instructions from: https://mirge3.readthedocs.io/en/latest/installation.html
-
 ```
 
 ### Usage
@@ -99,9 +93,6 @@ Here we also see that the 4th sample has a major contamination of Bird/Reptile m
 
 Using miRge3.0 to align reads to MirGeneDB2.0
 ```
-# start conda environment
-conda activate mirge3
-
 # create a text file with paths to fastq files, for example:
 data/fastq/sub_M12_1.fq.gz
 data/fastq/sub_M18.fq.gz
