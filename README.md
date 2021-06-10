@@ -31,6 +31,10 @@ conda env create -f environment.yml
 # and make sure dependencies are installed (python=3.7 and r) and bowtie, samtools and RNAfold
 
 conda install -c bioconda mirge3
+
+# miRge3 is also available as a docker container:
+https://quay.io/repository/biocontainers/mirge3?tab=tags
+
 ```
 
 ### Usage
