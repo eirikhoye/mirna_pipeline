@@ -1,0 +1,33 @@
+Bootstrap: docker
+From: ubuntu:18.04
+
+%files
+    /home/jcdenton/projects/mirna_pipeline/custom_databases/ /root/custom_databases/
+    /home/jcdenton/projects/mirna_pipeline/custom_reference/ /root/custom_reference/
+    /home/jcdenton/projects/mirna_pipeline/data/config /root/data/config
+    /home/jcdenton/projects/mirna_pipeline/data/fastq/sub_M12_1.fq.gz /root/data/fastq/sub_M12_1.fq.gz
+    /home/jcdenton/projects/mirna_pipeline/data/fastq/sub_M18.fq.gz /root/data/fastq/sub_M18.fq.gz
+    /home/jcdenton/projects/mirna_pipeline/data/fastq/sub_M19.fq.gz /root/data/fastq/sub_M19.fq.gz
+    /home/jcdenton/projects/mirna_pipeline/data/fastq/sub_SRR1646483.fastq.gz /root/data/fastq/sub_SRR1646483.fastq.gz
+    /home/jcdenton/projects/mirna_pipeline/data/fastq/sub_SRR837850.fastq.gz /root/data/fastq/sub_SRR837850.fastq.gz
+
+%environment
+    export PATH=$PATH:/root/mirtrace/
+
+%post
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get -y update
+    apt install -y software-properties-common
+    apt install -y unzip
+    add-apt-repository -y ppa:deadsnakes/ppa
+    apt install -y python
+    apt install -y openjdk-8-jre
+    apt install -y wget
+    wget https://github.com/friedlanderlab/mirtrace/releases/download/v1.0.0/mirtrace-v1.0.0.zip
+    unzip mirtrace-v1.0.0.zip
+
+
+
+
+
+

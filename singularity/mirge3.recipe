@@ -1,0 +1,36 @@
+Bootstrap: docker
+From: ubuntu:18.04
+
+%environment
+    export PATH=$PATH:/root/.local/bin:/root/bowtie-1.2.3-linux-x86_64
+
+
+%post
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get -y update
+    apt install -y software-properties-common
+    add-apt-repository -y ppa:deadsnakes/ppa
+    apt install -y autoconf
+    apt install -y python3.8
+    apt install -y python3-setuptools
+    apt install -y python3-pip
+    apt install -y r-base
+    alias python='python3.8'
+    export PATH=$PATH:"/root/.local/bin"
+    python3.8 -m pip install --upgrade pip
+    python3.8 -m pip install --user cutadapt reportlab==3.5.42 biopython==1.78  scikit-learn==0.23.1  hypothesis==5.15.1 pytest==5.4.2  scipy==1.4.1  matplotlib==3.2.1  joblib==0.15.1  pandas==1.0.3 future==0.18.2
+    python3.8 -m pip install --user mirge3
+    apt install -y wget 
+    wget -O bowtie-1.2.3-linux-x86_64.zip https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.2.3/bowtie-1.2.3-linux-x86_64.zip/download 
+    unzip bowtie-1.2.3-linux-x86_64.zip
+    export PATH=$PATH:"/root/bowtie-1.2.3-linux-x86_64"
+    apt-get install -y samtools
+    cd /root
+    wget https://www.tbi.univie.ac.at/RNA/download/sourcecode/2_4_x/ViennaRNA-2.4.16.tar.gz
+    tar -xvzf ViennaRNA-2.4.16.tar.gz
+    cd /root/ViennaRNA-2.4.16  
+    ./configure
+    make
+    make install
+    cd /root
+
