@@ -110,7 +110,7 @@ Now, in the $PROJECT/mirtrace_out directory, we will find a directory named with
 #### PHRED Scores
 First lets look at the PHRED scores. A PHRED score is the likelihood that a nucleotide was called correctly, the higher the score, the more confident the nucleotide is correct. miRTrace flags a dataset if greater than 50 % of its nucleotides have a Phred score >= 30.
 
-![Phred Scores](/images/mirtrace-phred-plot.png)
+![Phred Scores](/images/mirtrace-phred-plot.jpg)
 
 In this plot, all datasets but one, read_len_1, passed the Phred QC test.
 
@@ -118,21 +118,21 @@ In this plot, all datasets but one, read_len_1, passed the Phred QC test.
 #### Read Length Distribution
 miRNA genes are 22 nt in length on average. The read length distribution in a smallRNA-seq datasets should be around 22 nt. If a large proportion of reads are outside this distribution, it is a good sign of issues during library preparation. miRTrace flags reads where less than 25 % of reads are in the correct range.
 
-![Read Length](/images/mirtrace-length-plot.png)
+![Read Length](/images/mirtrace-length-plot.jpg)
 
 In this plot, the three rightmost datasets, read_len_1, read_len_2 and read_len_3, have reads in the incorrect range, and should therefore be excluded from the analysis.
 
 #### Quality Control Statistics
 miRTrace discards reads where there was no adapter detected or the length was less than 18 nt. A dataset is flagged if less than 25 %  of reads pass these criteria.
 
-![QC Plot](/images/mirtrace-qc-plot.png)
+![QC Plot](/images/mirtrace-qc-plot.jpg)
 
 Again, we see that the three rightmost datasets, read_len_1, read_len_2 and read_len_3, had poor QC stats.
 
 #### RNA Type
 It is of course important that the dataset actually contains miRNAs. A low proportion of miRNAs in the dataset could be an indication of issues during library preparation, however this is also dependent on the type of biological sample being studied.
 
-![RNA Type](/images/mirtrace-rnatype-plot.png)
+![RNA Type](/images/mirtrace-rnatype-plot.jpg)
 
 As expected, the three rightmost datasets contained no miRNA reads.
 
@@ -140,14 +140,14 @@ As expected, the three rightmost datasets contained no miRNA reads.
 #### Number of unique miRNA genes detected
 The number of miRNA genes that have been detected in the sample. Important to note here that MirGeneDB is used here, rather than miRBase with 1881 human miRNA genes, the majority of which have been shown to be false annotations.
 
-![Complexity](/images/mirtrace-complexity-plot.png)
+![Complexity](/images/mirtrace-complexity-plot.jpg)
 
 Now we also notice the datasets contaminated_2 and contaminated_3 have fewer number of detected miRNA genes than expected! As they passed all preceeding QC steps, this is unexpected!
 
 #### Contamination
 Lastly, miRTrace allows the detection of contaminants in miRNA datasets. Contaminated datasets are a strong indication of poor laboratory protocols, or mixup of barcodes when pooling samples on a flow cell. If a study has datasets with contaminants, one should concider not including those datasets in the analysis.
 
-![Read Contamination](/images/mirtrace-contamination-plot.png)
+![Read Contamination](/images/mirtrace-contamination-plot.jpg)
 
 Now we see the cause of the lower number of detected miRNA genes in contaminated_2 and contaminated_3! The majority of miRNAs in these datasets are from bird/reptile clades! Needless to say, these datasets should also not be included in further analysis.
 
