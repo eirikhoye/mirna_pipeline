@@ -105,7 +105,10 @@ sudo singularity exec --bind $PROJECT:/mnt $PROJECT/singularity/miRTrace.simg mi
         --config /mnt/config \
         -o /mnt/mirtrace_out/"$dt"
 ```
-Now, in the $PROJECT/mirtrace_out directory, we will find a directory named with the date_time of this run. This directory contains Quality Control reports for the FASTQ files, both as .csv files and a nicely formatted .html file. Lets go through this information now.
+Now, in the $PROJECT/mirtrace_out directory, we will find a directory named with the date_time of this run. This directory contains Quality Control reports for the FASTQ files, both as .csv files and a nicely formatted .html file. Lets go through the content of this file now:
+
+![Phred Scores](/images/mirtrace-phred-plot.png)
+
 
 
 
