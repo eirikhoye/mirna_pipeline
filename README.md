@@ -41,7 +41,12 @@ sudo singularity exec --bind /path/to/project_folder_on_host:/mnt /path/to/miRTr
            --config /mnt/config \
            -o /mnt/mirtrace_out/"$dt"
 
-# note, to work with your data in singularity you must mount the directory it is stored in (here called "project_folder_on_host") on you host to a path inside the singularity container, here /mnt, with the syntax: /path/to/host_dir:/path/to/singularity_dir/. This way we can run singularity on files stored on our system. See https://sylabs.io/guides/3.0/user-guide/bind_paths_and_mounts.html for details.
+# note, to work with your data in singularity you must mount the directory 
+# it is stored in (here called "project_folder_on_host") on you host to a path 
+# inside the singularity container, here /mnt, with the syntax: 
+# /path/to/host_dir:/path/to/singularity_dir/. This way we can run singularity 
+# on files stored on our system. 
+# See https://sylabs.io/guides/3.0/user-guide/bind_paths_and_mounts.html for details.
 
 
 
