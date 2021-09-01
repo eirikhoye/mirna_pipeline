@@ -10,7 +10,66 @@ miRTrace [Genome Biology (2018)](https://genomebiology.biomedcentral.com/article
 
 miRge3.0 [bioRxiv (2021)](https://www.biorxiv.org/content/10.1101/2021.01.18.427129v1). 
 > Patil HP; Halushka MR miRge3.0: a comprehensive microRNA and tRF sequencing analysis pipeline. bioRxiv 2021.01.18.427129
-> 
+
+### Set up singularity container
+```
+# on a host with singularity installed, first clone the repository
+git clone https://github.com/eirikhoye/mirna_pipeline
+cd mirna_pipeline/
+
+# Configure miRTrace container
+sudo singularity build singularity/miRTrace.simg singularity/miRTrace.recipe
+
+# Configure miRge3.0 container
+sudo singularity build singularity/mirge3.simg singularity/mirge3.recipe
+
+# Alternatively, install miRge3.0 by reading instructions here for relevant OS: 
+https://mirge3.readthedocs.io/en/latest/installation.html
+# and make sure dependencies are installed (python=3.7 and r) and bowtie, samtools and RNAfold
+
+conda install -c bioconda mirge3
+
+# miRge3 is also available as a docker container:
+https://quay.io/repository/biocontainers/mirge3?tab=tags
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### Dependencies
 ```
 bowtie=1.2.3
