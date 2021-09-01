@@ -1,0 +1,55 @@
+/root/.local/bin/miRge3.0 -s /mnt/filepaths.txt -lib miRge3_Lib -on human -db mirgenedb -o /mnt/mirge_output -tcf -cpu 4 -a illumina
+bowtie version: 1.2.3
+cutadapt version: 3.4
+Samtools version: 1.7
+Collecting and validating input files...
+
+miRge3.0 will process 18 out of 1 input file(s).
+
+Cutadapt finished for file mLi_1 in 5.3384 second(s)
+Collapsing finished for file mLi_1 in 0.1194 second(s)
+Cutadapt finished for file mLi_2 in 5.0531 second(s)
+Collapsing finished for file mLi_2 in 0.3337 second(s)
+Cutadapt finished for file mLi_3 in 5.2394 second(s)
+Collapsing finished for file mLi_3 in 0.4984 second(s)
+Cutadapt finished for file mLu_1 in 3.6007 second(s)
+Collapsing finished for file mLu_1 in 0.6727 second(s)
+Cutadapt finished for file mLu_2 in 3.6645 second(s)
+Collapsing finished for file mLu_2 in 0.9328 second(s)
+Cutadapt finished for file mLu_3 in 3.6886 second(s)
+Collapsing finished for file mLu_3 in 0.8795 second(s)
+Cutadapt finished for file nCR_1 in 5.2913 second(s)
+Collapsing finished for file nCR_1 in 1.062 second(s)
+Cutadapt finished for file nCR_2 in 5.1014 second(s)
+Collapsing finished for file nCR_2 in 1.0384 second(s)
+Cutadapt finished for file nCR_3 in 5.1996 second(s)
+Collapsing finished for file nCR_3 in 1.2744 second(s)
+Cutadapt finished for file nLi_1 in 5.2871 second(s)
+Collapsing finished for file nLi_1 in 1.3517 second(s)
+Cutadapt finished for file nLi_2 in 5.147 second(s)
+Collapsing finished for file nLi_2 in 1.4112 second(s)
+Cutadapt finished for file nLi_3 in 5.0855 second(s)
+Collapsing finished for file nLi_3 in 1.597 second(s)
+Cutadapt finished for file nLu_1 in 3.6775 second(s)
+Collapsing finished for file nLu_1 in 1.6981 second(s)
+Cutadapt finished for file nLu_2 in 3.605 second(s)
+Collapsing finished for file nLu_2 in 1.7107 second(s)
+Cutadapt finished for file nLu_3 in 3.6381 second(s)
+Collapsing finished for file nLu_3 in 1.7807 second(s)
+Cutadapt finished for file pCRC_1 in 5.2376 second(s)
+Collapsing finished for file pCRC_1 in 2.4293 second(s)
+Cutadapt finished for file pCRC_2 in 5.0719 second(s)
+Collapsing finished for file pCRC_2 in 2.2329 second(s)
+Cutadapt finished for file pCRC_3 in 5.2704 second(s)
+Collapsing finished for file pCRC_3 in 2.5125 second(s)
+Matrix creation finished in 0.8931 second(s)
+
+Data pre-processing completed in 109.6205 second(s)
+
+Alignment in progress ...
+Alignment completed in 34.1872 second(s)
+
+Summarizing and tabulating results...
+Summary completed in 8.0345 second(s)
+
+The analysis completed in 152.697 second(s)

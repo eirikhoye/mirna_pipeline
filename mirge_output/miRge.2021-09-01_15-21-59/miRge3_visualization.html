@@ -1,0 +1,249 @@
+
+    <!DOCTYPE HTML>
+    <html>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>miRge3.0</title>
+            <style type="text/css">
+    		button.button{
+    			background: #337ab7;
+    			border-radius: 12px;
+    			padding: 10px 10px;
+    			display: block;
+    			
+    			#font-weight: bold;
+    			font-size: 14px;
+    			color:white;
+    			text-decoration: none;
+    			text-shadow:0px 0px 0px #fff;
+    			border:1px solid #337ab7;
+    
+    			box-shadow: 0px 3px 1px white inset, 0px -3px 8px white, 0px 2px 5px rgba(0, 0, 0, 0.1), 0px 8px 10px rgba(0, 0, 0, 0.1);
+    			-webkit-transition:box-shadow 0.5s;
+    		}
+    		
+    		button.button:hover{
+    			box-shadow: 0px 1px 1px white inset, 0px -2px 20px white, 0px 2px 5px rgba(0, 0, 0, 0.1), 0px 8px 10px rgba(0, 0, 0, 0.1);
+    		}
+    		button.button:active{
+    			box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5) inset, 0px -2px 20px white, 0px 1px 5px rgba(0, 0, 0, 0.1), 0px 2px 10px rgba(0, 0, 0, 0.1);
+    			background:-webkit-linear-gradient(top, #d1d1d1 0%,#ECECEC 100%);
+    		}
+    	
+    		.highcharts-figure, .highcharts-data-table table {
+    			min-width: 310px; 
+    			max-width: 800px;
+    			margin: 1em auto;
+    		}
+    
+    		#container {
+    			height: 400px;
+    		}
+    
+    		.highcharts-data-table table {
+    			font-family: Verdana, sans-serif;
+    			border-collapse: collapse;
+    			border: 1px solid #EBEBEB;
+    			margin: 10px auto;
+    			text-align: center;
+    			width: 100%;
+    			max-width: 500px;
+    		}
+    		.highcharts-data-table caption {
+    			padding: 1em 0;
+    			font-size: 1.2em;
+    			color: #555;
+    		}
+    		.highcharts-data-table th {
+    			font-weight: 600;
+    			padding: 0.5em;
+    		}
+    		.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+    			padding: 0.5em;
+    		}
+    		.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+    			background: #f8f8f8;
+    		}
+    		.highcharts-data-table tr:hover {
+    			background: #f1f7ff;
+       		}
+            </style>
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+            <link rel="stylesheet" href="https://raw.githack.com/arunhpatil/GUI/master/CSS/jquery.dataTables.min.css">
+            </head>
+            <body>
+                <div style="background-color:#000000; height:2px; width:100%;"></div>
+                <script src="https://raw.githack.com/arunhpatil/GUI/master/Code/highcharts.js"></script>
+                <script src="https://raw.githack.com/arunhpatil/GUI/master/modules/exporting.js"></script>
+                <script src="https://raw.githack.com/arunhpatil/GUI/master/modules/export-data.js"></script>
+                <script src="https://raw.githack.com/arunhpatil/GUI/master/modules/accessibility.js"></script>
+                <script src="https://raw.githack.com/arunhpatil/GUI/master/modules/histogram-bellcurve.js"></script>
+                <script src="https://raw.githack.com/arunhpatil/GUI/master/modules/heatmap.js"></script>
+                <script src="https://raw.githack.com/arunhpatil/GUI/master/modules/tilemap.js"></script>
+                
+                <p style="font-weight: bold; text-align:center; font-family: 'Source Sans Pro', sans-serif; font-size: 20px;">miRge3.0: Comprehensive analysis of small RNA sequencing Data.</p>
+                
+                <div style="background-color:#000000; height:2px; width:100%;"></div>
+                
+                <table border="0" width="100%" height="100%" style=" margin-left:auto; margin-right:auto;" >
+                    <tr style=" border: solid 1px; padding: 5px; border-radius: 20px; border-color: black;">
+                        <td align="center" style="padding: 5px; ">
+                            <button class="button btn btn-primary btn-xs" onclick="show1();" >
+                                <i class="far fa-chart-bar"></i>
+                                    SmallRNA distribution
+                            </button>
+                        </td>
+                        <td align="center" >
+                            <button class="button btn btn-primary btn-xs" onclick="show2();">
+                                <i class="fas fa-ruler"></i>&nbsp; Read Length &nbsp; 
+                            </button>
+                        </td>
+                        <td align="center" >
+                            <button class="button btn btn-primary btn-xs"  onclick="show3();">
+                                <i class="far fa-list-alt"></i>&nbsp; isomiR results &nbsp; 
+                            </button>
+                        </td>
+                        <td align="center" >
+                            <button class="button btn btn-primary btn-xs"  onclick="show4();">
+                                <i class="fas fa-chart-line"></i>&nbsp; Abundant miRNAs &nbsp; 
+                            </button>
+                        </td>
+                        <td align="center" >
+                            <button class="button btn btn-primary btn-xs"  onclick="show5();">
+                                <i class="fas fa-layer-group"></i>
+                                    UMI distribution
+                            </button>
+                        </td>
+                        <td align="center" >
+                            <button class="button btn btn-primary btn-xs"  onclick="show6();">
+                                <i class="fas fa-envelope-open-text"></i>&nbsp;
+                                    Novel miRNAs
+                            </button>
+                        </td>
+                    </tr>
+                </table>    <div style="background-color:#000000; height:2px; width:100%;"></div>
+                <script>
+                    function show1(){
+                        document.getElementById('tab_barStack').style.display = 'block';
+                        document.getElementById('tab_lengthHist').style.display = 'none';
+                        document.getElementById('tab_isomir').style.display = 'none';
+                        document.getElementById('tab_abundantEx').style.display = 'none';
+                        document.getElementById('tab_qiagenUMI').style.display = 'none';
+                        document.getElementById('tab_novelmiR').style.display = 'none';
+                    }
+                    function show2(){
+                        document.getElementById('tab_barStack').style.display = 'none';
+                        document.getElementById('tab_lengthHist').style.display = 'block';
+                        document.getElementById('tab_isomir').style.display = 'none';
+                        document.getElementById('tab_abundantEx').style.display = 'none';
+                        document.getElementById('tab_qiagenUMI').style.display = 'none';
+                        document.getElementById('tab_novelmiR').style.display = 'none';
+                    }	
+                    function show3(){
+                        document.getElementById('tab_barStack').style.display = 'none';
+                        document.getElementById('tab_lengthHist').style.display = 'none';
+                        document.getElementById('tab_isomir').style.display = 'block';
+                        document.getElementById('tab_abundantEx').style.display = 'none';
+                        document.getElementById('tab_qiagenUMI').style.display = 'none';
+                        document.getElementById('tab_novelmiR').style.display = 'none';    
+                    }				
+                    function show4(){
+                        document.getElementById('tab_barStack').style.display = 'none';
+                        document.getElementById('tab_lengthHist').style.display = 'none';
+                        document.getElementById('tab_isomir').style.display = 'none';
+                        document.getElementById('tab_abundantEx').style.display = 'block';
+                        document.getElementById('tab_qiagenUMI').style.display = 'none';
+                        document.getElementById('tab_novelmiR').style.display = 'none';
+                    }							
+                    function show5(){
+                        document.getElementById('tab_barStack').style.display = 'none';
+                        document.getElementById('tab_lengthHist').style.display = 'none';
+                        document.getElementById('tab_isomir').style.display = 'none';
+                        document.getElementById('tab_abundantEx').style.display = 'none';
+                        document.getElementById('tab_qiagenUMI').style.display = 'block';
+                        document.getElementById('tab_novelmiR').style.display = 'none';
+                    }				
+                    function show6(){
+                        document.getElementById('tab_barStack').style.display = 'none';
+                        document.getElementById('tab_lengthHist').style.display = 'none';
+                        document.getElementById('tab_isomir').style.display = 'none';
+                        document.getElementById('tab_abundantEx').style.display = 'none';
+                        document.getElementById('tab_qiagenUMI').style.display = 'none';
+                        document.getElementById('tab_novelmiR').style.display = 'block';
+                    }						
+                </script>
+                <table border="0" style="width:100%;" >
+                    <tr>
+                        <td align="center" style="padding: 5px;">
+                            <div id="tab_barStack">
+                                <figure class="highcharts-figure" style="width:800px">
+                                    <div id="smallRNADist"></div>
+                                </figure>
+                            </div>    
+                            <div id="tab_lengthHist" style="display:none">
+                                <figure class="highcharts-figure" style="width:800px">
+                                    <p><i class="fas fa-search-plus" style="font-weight: bold; color: #337ab7;"></i>&nbsp;&nbsp;drag across x or y axis to zoom</p>
+                                    <div id='readLengthID_1' ></div><br><hr><br>
+                                    <div id='readLengthID_2' ></div><br><hr><br>
+                                    <div id='readLengthID_3' ></div><br><hr><br>
+                                    <div id='readLengthID_4' ></div><br><hr><br>
+                                    <div id='readLengthID_5' ></div><br><hr><br>
+                                    <div id='readLengthID_6' ></div><br><hr><br>
+                                    <div id='readLengthID_7' ></div><br><hr><br>
+                                    <div id='readLengthID_8' ></div><br><hr><br>
+                                    <div id='readLengthID_9' ></div><br><hr><br>
+                                    <div id='readLengthID_10' ></div><br><hr><br>
+                                    <div id='readLengthID_11' ></div><br><hr><br>
+                                    <div id='readLengthID_12' ></div><br><hr><br>
+                                    <div id='readLengthID_13' ></div><br><hr><br>
+                                    <div id='readLengthID_14' ></div><br><hr><br>
+                                    <div id='readLengthID_15' ></div><br><hr><br>
+                                    <div id='readLengthID_16' ></div><br><hr><br>
+                                    <div id='readLengthID_17' ></div><br><hr><br>
+                                    <div id='readLengthID_18' ></div><br><hr><br>
+                                </figure>
+                            </div>            
+                            <div id="tab_isomir" style="display:none">
+                                <h2>No Data</h2>
+                                <p>isomiR(s) was not part of the analysis</p>
+                            </div>                
+                            <div id="tab_abundantEx" style="display:none">
+                                <figure class="highcharts-figure" style="width:800px">        
+                                    <div id='exprnDivID_1' ></div><br><hr><br>
+                                    <div id='exprnDivID_2' ></div><br><hr><br>
+                                    <div id='exprnDivID_3' ></div><br><hr><br>
+                                    <div id='exprnDivID_4' ></div><br><hr><br>
+                                    <div id='exprnDivID_5' ></div><br><hr><br>
+                                    <div id='exprnDivID_6' ></div><br><hr><br>
+                                    <div id='exprnDivID_7' ></div><br><hr><br>
+                                    <div id='exprnDivID_8' ></div><br><hr><br>
+                                    <div id='exprnDivID_9' ></div><br><hr><br>
+                                    <div id='exprnDivID_10' ></div><br><hr><br>
+                                    <div id='exprnDivID_11' ></div><br><hr><br>
+                                    <div id='exprnDivID_12' ></div><br><hr><br>
+                                    <div id='exprnDivID_13' ></div><br><hr><br>
+                                    <div id='exprnDivID_14' ></div><br><hr><br>
+                                    <div id='exprnDivID_15' ></div><br><hr><br>
+                                    <div id='exprnDivID_16' ></div><br><hr><br>
+                                    <div id='exprnDivID_17' ></div><br><hr><br>
+                                    <div id='exprnDivID_18' ></div><br><hr><br>
+                                </figure> 
+                            </div>
+                            <div id="tab_qiagenUMI" style="display:none">
+                                <h2>No Data</h2>
+                                <p>UMI was not part of the analysis</p>
+                            </div>                
+                            <div id="tab_novelmiR" style="display:none">
+                                <h2>No Data</h2>
+                                <p>Novel miRNAs was not part of the analysis</p>
+                            </div>                
+                        </td>
+                    </tr>
+                </table>
+                <script type="text/javascript" src="https://raw.githack.com/arunhpatil/GUI/master/Code/jquery-3.5.1.js"></script>
+                <script type="text/javascript" src="https://raw.githack.com/arunhpatil/GUI/master/Code/jquery.dataTables.min.js"></script> 
+                <script type="text/javascript" src="./index_data.js"></script>
+            </body>
+        </html>
+    
