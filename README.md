@@ -35,23 +35,37 @@ https://mirge3.readthedocs.io/en/latest/installation.html
 # running miRTrace singularity container
 dt=`date '+%d%m%Y_%H%M%S'`
 
-sudo singularity exec --bind /path/to/project_folder_on_host:/mnt /path/to/miRTrace.simg mirtrace qc --species hsa --custom-db-folder /mnt/custom_databases/ --config /mnt/config -o /mnt/mirtrace_out/"$dt"
+sudo singularity exec --bind /path/to/project_folder_on_host:/mnt /path/to/miRTrace.simg mirtrace qc \
+           --species hsa \
+           --custom-db-folder /mnt/custom_databases/ \
+           --config /mnt/config \
+           -o /mnt/mirtrace_out/"$dt"
 
 # note, to work with your data in singularity you must mount the directory it is stored in (here called "project_folder_on_host") on you host to a path inside the singularity container, here /mnt, with the syntax: /path/to/host_dir:/path/to/singularity_dir/. This way we can run singularity on files stored on our system. See https://sylabs.io/guides/3.0/user-guide/bind_paths_and_mounts.html for details.
 
 
 
 # running miRge3.0
-sudo singularity exec --bind /path/to/project_folder_on_Host:/mnt /path/to/mirge3.simg miRge3.0 -s /mnt/filepaths.txt -lib /mnt/miRge3_Lib -on human -db mirgenedb -o /mnt/mirge_output -tcf -cpu 4 -a illumina
+sudo singularity exec --bind /path/to/project_folder_on_Host:/mnt /path/to/mirge3.simg \
+          miRge3.0 -s /mnt/filepaths.txt \
+          -lib /mnt/miRge3_Lib \
+          -on human \
+          -db mirgenedb \
+          -o /mnt/mirge_output \
+          -tcf \
+          -cpu 4 \
+          -a illumina
 
 
 
 
 ```
 ## Tutorial
-Lets give an example using toy fastq files fastq_toy directory. First lets do QC on these samples with miRTrace. miRTrace takes raw FASTQ files as input and outputs nicely formatted QC reports, and will also assess potential contamination! 
+Lets give an example using the FASTQ files in fastq_toy directory. 
 
-miRTrace requires a config .csv file with paths, name and library adapter sequence, of the format:
+First things first, lets do QC on these samples with miRTrace! miRTrace takes raw FASTQ files as input and outputs nicely formatted QC reports, and will also assess potential contamination.
+
+miRTrace also requires a config .csv file with paths, name and library adapter sequence, of the format:
 ```
 /mnt/fastq_toy/mLi_1.fq,mLi_1,TGGAATTC
 /mnt/fastq_toy/mLi_2.fq,mLi_2,TGGAATTC
@@ -78,10 +92,24 @@ miRTrace requires a config .csv file with paths, name and library adapter sequen
 /mnt/fastq_toy/read_len_2.fq,read_len_2,TCGTATGC
 /mnt/fastq_toy/read_len_3.fq,read_len_3,TCGTATGC
 
-# note we set /mnt as prefix to path as we defined our project folder as /mnt
+# note we set /mnt as prefix to path, because we defined our project folder as /mnt
 ```
 
+```
+# run miRTrace with
+export PROJECT="/path/to/mirna_pipeline" # set to wherever you cloned the github mirna_pipeline directory
+dt=`date '+%d%m%Y_%H%M%S'`               # create a date time varialbe to keep track of multiple runs
 
+sudo singularity exec --bind $PROJECT:/mnt $PROJECT/singularity/miRTrace.simg mirtrace qc \
+        --species hsa \
+        --custom-db-folder /mnt/custom_databases/ \
+        --config /mnt/config \
+        -o /mnt/mirtrace_out/"$dt"
+
+
+
+
+```
 
 
 
@@ -112,6 +140,8 @@ fastx-toolkit
 bioconductor-rsubread
 mirge3.0
 ```
+
+
 ### Installing
 ```
 # install miRTrace
