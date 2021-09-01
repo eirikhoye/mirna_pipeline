@@ -161,17 +161,45 @@ Now we see the cause of the lower number of detected miRNA genes in contaminated
 
 ### miRge3.0
 
-Align reads to MirGeneDB2.0 and create count matrix with miRge3
-```
-# create a text file with paths to fastq files, for example:
-data/fastq/sub_M12_1.fq.gz
-data/fastq/sub_M18.fq.gz
-data/fastq/sub_M19.fq.gz
-data/fastq/sub_SRR1646483.fastq.gz
-data/fastq/sub_SRR837850.fastq.gz
+Now that we have run our datasets through QA, its time to align those that passed to MirGeneDB. To do this, we will use miRge3.0, a state of the art read aligner that is designed specifically for miRNA datasets. miRge3.0 has many advanced features, including detecting A to I editing events, discovery of novel miRNAs, and much more. For further details, see https://mirge3.readthedocs.io/en/latest/quick_start.html. For now, we will simply align our datasets against MirGeneDB and create a count matrix for downstream analysis.
 
-# run the mirge3.0 with scripts/run_mirge3.sh and filepaths.txt for tutorial FASTQ
-bash scripts/run_mirge3.sh filepaths.txt
+First, create a filepaths.txt file containing paths to your datasets:
+```
+# Note, filenames must end with .fastq or .fastq.gz!
+
+/mnt/data/fastq_sub/mLi_1.fastq
+/mnt/data/fastq_sub/mLi_2.fastq
+/mnt/data/fastq_sub/mLi_3.fastq
+/mnt/data/fastq_sub/mLu_1.fastq
+/mnt/data/fastq_sub/mLu_2.fastq
+/mnt/data/fastq_sub/mLu_3.fastq
+/mnt/data/fastq_sub/nCR_1.fastq
+/mnt/data/fastq_sub/nCR_2.fastq
+/mnt/data/fastq_sub/nCR_3.fastq
+/mnt/data/fastq_sub/nLi_1.fastq
+/mnt/data/fastq_sub/nLi_2.fastq
+/mnt/data/fastq_sub/nLi_3.fastq
+/mnt/data/fastq_sub/nLu_1.fastq
+/mnt/data/fastq_sub/nLu_2.fastq
+/mnt/data/fastq_sub/nLu_3.fastq
+/mnt/data/fastq_sub/pCRC_1.fastq
+/mnt/data/fastq_sub/pCRC_2.fastq
+/mnt/data/fastq_sub/pCRC_3.fastq
+```
+
+Then, we will align reads to MirGeneDB2.0 and create count matrix with miRge3 using the mirge3.simg singularity image we created/downloaded
+
+```
+# running miRge3.0
+sudo singularity exec --bind /path/to/project_folder_on_host:/mnt /path/to/mirge3.simg \
+          miRge3.0 -s /mnt/filepaths.txt \      # path to filepaths
+          -lib /mnt/miRge3_Lib \
+          -on human \
+          -db mirgenedb \
+          -o /mnt/mirge_output \
+          -tcf \                    # This runs 
+          -cpu 4 \
+          -a illumina
 
 # or read documentation for more customisation: https://mirge3.readthedocs.io/en/latest/
 
