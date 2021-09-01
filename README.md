@@ -33,23 +33,53 @@ https://mirge3.readthedocs.io/en/latest/installation.html
 ### Usage
 ```
 # running miRTrace singularity container
-singularity exec --bind /path/to/project_folder_on_host:/mnt /path/to/miRTrace.simg mirtrace qc --species hsa --custom-db-folder /mnt/custom_databases/ --config /mnt/config --write-fasta
+dt=`date '+%d%m%Y_%H%M%S'`
 
-# running
+sudo singularity exec --bind /path/to/project_folder_on_host:/mnt /path/to/miRTrace.simg mirtrace qc --species hsa --custom-db-folder /mnt/custom_databases/ --config /mnt/config -o /mnt/mirtrace_out/"$dt"
+
+# note, to work with your data in singularity you must mount the directory it is stored in (here called "project_folder_on_host") on you host to a path inside the singularity container, here /mnt, with the syntax: /path/to/host_dir:/path/to/singularity_dir/. This way we can run singularity on files stored on our system. See https://sylabs.io/guides/3.0/user-guide/bind_paths_and_mounts.html for details.
+
+
+
+# running miRge3.0
+sudo singularity exec --bind /path/to/project_folder_on_Host:/mnt /path/to/mirge3.simg miRge3.0 -s /mnt/filepaths.txt -lib /mnt/miRge3_Lib -on human -db mirgenedb -o /mnt/mirge_output -tcf -cpu 4 -a illumina
+
+
 
 
 ```
+## Tutorial
+Lets give an example using toy fastq files fastq_toy directory. First lets do QC on these samples with miRTrace. miRTrace takes raw FASTQ files as input and outputs nicely formatted QC reports, and will also assess potential contamination! 
 
+miRTrace requires a config .csv file with paths, name and library adapter sequence, of the format:
+```
+/mnt/fastq_toy/mLi_1.fq,mLi_1,TGGAATTC
+/mnt/fastq_toy/mLi_2.fq,mLi_2,TGGAATTC
+/mnt/fastq_toy/mLi_3.fq,mLi_3,TGGAATTC
+/mnt/fastq_toy/mLu_1.fq,mLu_1,TGGAATTC
+/mnt/fastq_toy/mLu_2.fq,mLu_2,TGGAATTC
+/mnt/fastq_toy/mLu_3.fq,mLu_3,TGGAATTC
+/mnt/fastq_toy/nCR_1.fq,nCR_1,TGGAATTC
+/mnt/fastq_toy/nCR_2.fq,nCR_2,TGGAATTC
+/mnt/fastq_toy/nCR_3.fq,nCR_3,TGGAATTC
+/mnt/fastq_toy/nLi_1.fq,nLi_1,TGGAATTC
+/mnt/fastq_toy/nLi_2.fq,nLi_2,TGGAATTC
+/mnt/fastq_toy/nLi_3.fq,nLi_3,TGGAATTC
+/mnt/fastq_toy/nLu_1.fq,nLu_1,TGGAATTC
+/mnt/fastq_toy/nLu_2.fq,nLu_2,TGGAATTC
+/mnt/fastq_toy/nLu_3.fq,nLu_3,TGGAATTC
+/mnt/fastq_toy/pCRC_1.fq,pCRC_1,TGGAATTC
+/mnt/fastq_toy/pCRC_2.fq,pCRC_2,TGGAATTC
+/mnt/fastq_toy/pCRC_3.fq,pCRC_3,TGGAATTC
+/mnt/fastq_toy/contaminated_1.fq,contaminated_1,CGCCTTGGCCGTA
+/mnt/fastq_toy/contaminated_2.fq,contaminated_2,CGCCTTGGCCGTA
+/mnt/fastq_toy/contaminated_3.fq,contaminated_3,CGCCTTGGCCGTA
+/mnt/fastq_toy/read_len_1.fq,read_len_1,TCGTATGC
+/mnt/fastq_toy/read_len_2.fq,read_len_2,TCGTATGC
+/mnt/fastq_toy/read_len_3.fq,read_len_3,TCGTATGC
 
-
-
-
-
-
-
-
-
-
+# note we set /mnt as prefix to path as we defined our project folder as /mnt
+```
 
 
 
