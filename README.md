@@ -33,7 +33,7 @@ https://mirge3.readthedocs.io/en/latest/installation.html
 ### Usage
 ```
 # running miRTrace singularity container
-dt=`date '+%d%m%Y_%H%M%S'`
+dt=`date '+%d%m%Y_%H%M%S'` # date time variable for output dir
 
 sudo singularity exec --bind /path/to/project_folder_on_host:/mnt /path/to/miRTrace.simg mirtrace qc \
            --species hsa \
@@ -93,22 +93,19 @@ miRTrace also requires a config .csv file with paths, name and library adapter s
 ```
 
 ```
-# run miRTrace with
+# First define some convenience variables
 export PROJECT="/path/to/mirna_pipeline" # set to wherever you cloned the github mirna_pipeline directory
-dt=`date '+%d%m%Y_%H%M%S'`               # create a date time varialbe to keep track of multiple runs
+dt=`date '+%d%m%Y_%H%M%S'`               # date time variable, remember to reset before each run!
+mkdir $PROJECT/mirtrace_out
 
+# run miRTrace with
 sudo singularity exec --bind $PROJECT:/mnt $PROJECT/singularity/miRTrace.simg mirtrace qc \
         --species hsa \
         --custom-db-folder /mnt/custom_databases/ \
         --config /mnt/config \
         -o /mnt/mirtrace_out/"$dt"
-
-
-
-
 ```
-
-
+Now, in the $PROJECT/mirtrace_out directory, we will find a directory named with the date_time of this run. This directory contains Quality Control reports for the FASTQ files, both as .csv files and a nicely formatted .html file. Lets go through this information now.
 
 
 
