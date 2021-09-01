@@ -20,23 +20,25 @@ cd mirna_pipeline/
 # Configure miRTrace container
 sudo singularity build singularity/miRTrace.simg singularity/miRTrace.recipe
 
+# Alternatively, install miRTrace by following instructions here:
+https://github.com/friedlanderlab/mirtrace
+
 # Configure miRge3.0 container
 sudo singularity build singularity/mirge3.simg singularity/mirge3.recipe
 
 # Alternatively, install miRge3.0 by reading instructions here for relevant OS: 
 https://mirge3.readthedocs.io/en/latest/installation.html
 # and make sure dependencies are installed (python=3.7 and r) and bowtie, samtools and RNAfold
+```
+### Usage
+```
+# running miRTrace singularity container
+singularity exec --bind /path/to/project_folder_on_host:/mnt /path/to/miRTrace.simg mirtrace qc --species hsa --custom-db-folder /mnt/custom_databases/ --config /mnt/config --write-fasta
 
-conda install -c bioconda mirge3
-
-# miRge3 is also available as a docker container:
-https://quay.io/repository/biocontainers/mirge3?tab=tags
-
+# running
 
 
 ```
-
-
 
 
 
