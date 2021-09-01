@@ -142,7 +142,7 @@ The number of miRNA genes that have been detected in the sample. Important to no
 
 ![Complexity](/images/mirtrace-complexity-plot.png)
 
-Now we also notice the datasets contaminated_2 and contaminated_3 also had fewer number of detected miRNA genes than expected! As they passed all preceeding QC steps, this is unexpected!
+Now we also notice the datasets contaminated_2 and contaminated_3 have fewer number of detected miRNA genes than expected! As they passed all preceeding QC steps, this is unexpected!
 
 #### Contamination
 Lastly, miRTrace allows the detection of contaminants in miRNA datasets. Contaminated datasets are a strong indication of poor laboratory protocols, or mixup of barcodes when pooling samples on a flow cell. If a study has datasets with contaminants, one should concider not including those datasets in the analysis.
