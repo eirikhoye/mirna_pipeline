@@ -91,7 +91,7 @@ miRTrace also requires a config .csv file with paths, name and library adapter s
 
 # note we set /mnt as prefix to path, because we defined our project folder as /mnt
 ```
-
+Now lets run miRTrace from the singularity container
 ```
 # First define some convenience variables
 export PROJECT="/path/to/mirna_pipeline" # set to wherever you cloned the github mirna_pipeline directory
@@ -106,9 +106,9 @@ sudo singularity exec --bind $PROJECT:/mnt $PROJECT/singularity/miRTrace.simg mi
         -o /mnt/mirtrace_out/"$dt"
 ```
 Now, in the $PROJECT/mirtrace_out directory, we will find a directory named with the date_time of this run. This directory contains Quality Control reports for the FASTQ files, both as .csv files and a nicely formatted .html file. Lets go through the content of this file now:
-
+First lets look at the Phred scores. Phred score is the likelihood of a nucleotide being called correctly, the higher the score, the more confidence we have the nucleotide is correct. miRTrace flags a sample if greater than 50 % of its nucleotides have a Phred score >= 30.
 ![Phred Scores](/images/mirtrace-phred-plot.png)
-
+In this plot, all datasets but one, read_len_1, passed the Phred QC test.
 
 
 
