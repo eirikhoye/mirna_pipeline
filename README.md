@@ -123,7 +123,6 @@ Now, in the $PROJECT/mirtrace_out directory, we will find a directory named with
 
 
 
-
 ### Dependencies
 ```
 bowtie=1.2.3
