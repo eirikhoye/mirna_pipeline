@@ -108,7 +108,7 @@ sudo singularity exec --bind $PROJECT:/mnt $PROJECT/singularity/miRTrace.simg mi
 Now, in the $PROJECT/mirtrace_out directory, we will find a directory named with the date_time of this run. This directory contains Quality Control reports for the FASTQ files, both as .csv files and a nicely formatted .html file. Lets go through the content of this file now:
 
 #### PHRED Scores
-First lets look at the PHRED scores. A PHRED score is the likelihood that a nucleotide was called correctly, the higher the score, the more confident the nucleotide is correct. miRTrace flags a sample if greater than 50 % of its nucleotides have a Phred score >= 30.
+First lets look at the PHRED scores. A PHRED score is the likelihood that a nucleotide was called correctly, the higher the score, the more confident the nucleotide is correct. miRTrace flags a dataset if greater than 50 % of its nucleotides have a Phred score >= 30.
 
 ![Phred Scores](/images/mirtrace-phred-plot.png)
 
@@ -116,21 +116,23 @@ In this plot, all datasets but one, read_len_1, passed the Phred QC test.
 
 
 #### Read Length Distribution
-miRNAs are on average 22 nt in length. Therefore, the read-lengths in a smallRNA-seq datasets should be distributed around 22 nt. If a large proportion of reads are outside this distribution, it is a good sign of issues during library preparation. miRTrace flags reads where less than 25 % of reads are in the correct range.
+miRNA genes are 22 nt in length on average. The read length distribution in a smallRNA-seq datasets should be around 22 nt. If a large proportion of reads are outside this distribution, it is a good sign of issues during library preparation. miRTrace flags reads where less than 25 % of reads are in the correct range.
 
 ![Read Length](/images/mirtrace-length-plot.png)
 
-In this plot, the three rightmost datasets, read_len_1, read_len_2 and read_len_3, have reads in the incorrect range, and should therefore not be included in an analysis.
+In this plot, the three rightmost datasets, read_len_1, read_len_2 and read_len_3, have reads in the incorrect range, and should therefore be excluded from the analysis.
 
 #### Quality Control Statistics
-
+miRTrace discards reads where there was no adapter detected or the length was less than 18 nt. A dataset is flagged if less than 25 %  of reads pass these criteria.
 
 ![QC Plot](/images/mirtrace-qc-plot.png)
 
+Again, we see that the three rightmost datasets, read_len_1, read_len_2 and read_len_3, had poor QC stats.
+
+#### RNA Type
 
 
-
-
+![RNA Type](/images/mirtrace-rnatype-plot.png)
 
 
 
