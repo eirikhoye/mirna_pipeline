@@ -130,11 +130,11 @@ miRTrace discards reads where there was no adapter detected or the length was le
 Again, we see that the three rightmost datasets, read_len_1, read_len_2 and read_len_3, had poor QC stats.
 
 #### RNA Type
-
+It is of course important that the dataset actually contains miRNAs. A low proportion of miRNAs in the dataset could be an indication of issues during library preparation, however this is also dependent on the type of biological sample being studied.
 
 ![RNA Type](/images/mirtrace-rnatype-plot.png)
 
-
+Again the three rightmost datasets 
 
 
 ### Dependencies
