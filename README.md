@@ -41,15 +41,6 @@ sudo singularity exec --bind /path/to/project_folder_on_host:/mnt /path/to/miRTr
            --config /mnt/config \
            -o /mnt/mirtrace_out/"$dt"
 
-# Note, in order to work with your data in a singularity container you must mount the
-# directory it is stored in (here called "project_folder_on_host") on your host, on to a path 
-# inside the singularity container, here /mnt, with the syntax: 
-# /path/to/host_dir:/path/to/singularity_dir/. 
-# This way we can run singularity on files stored on our system. 
-# See https://sylabs.io/guides/3.0/user-guide/bind_paths_and_mounts.html for details.
-
-
-
 # running miRge3.0
 sudo singularity exec --bind /path/to/project_folder_on_host:/mnt /path/to/mirge3.simg \
           miRge3.0 -s /mnt/filepaths.txt \
@@ -61,9 +52,12 @@ sudo singularity exec --bind /path/to/project_folder_on_host:/mnt /path/to/mirge
           -cpu 4 \
           -a illumina
 
-
-
-
+# Note, in order to work with your data in a singularity container you must mount the
+# directory it is stored in (here called "project_folder_on_host") on your host, on to a path 
+# inside the singularity container, here /mnt, with the syntax: 
+# /path/to/host_dir:/path/to/singularity_dir/. 
+# This way we can run singularity on files stored on our system. 
+# See https://sylabs.io/guides/3.0/user-guide/bind_paths_and_mounts.html for details.
 ```
 ## Tutorial
 Lets give an example using the FASTQ files in fastq_toy directory. 
