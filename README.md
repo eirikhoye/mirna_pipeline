@@ -107,20 +107,25 @@ sudo singularity exec --bind $PROJECT:/mnt $PROJECT/singularity/miRTrace.simg mi
 ```
 Now, in the $PROJECT/mirtrace_out directory, we will find a directory named with the date_time of this run. This directory contains Quality Control reports for the FASTQ files, both as .csv files and a nicely formatted .html file. Lets go through the content of this file now:
 
-#### Phred Scores
-First lets look at the Phred scores. Phred score is the likelihood of a nucleotide being called correctly, the higher the score, the more confidence we have the nucleotide is correct. miRTrace flags a sample if greater than 50 % of its nucleotides have a Phred score >= 30.
+#### PHRED Scores
+First lets look at the PHRED scores. A PHRED score is the likelihood that a nucleotide was called correctly, the higher the score, the more confident the nucleotide is correct. miRTrace flags a sample if greater than 50 % of its nucleotides have a Phred score >= 30.
 
 ![Phred Scores](/images/mirtrace-phred-plot.png)
 
 In this plot, all datasets but one, read_len_1, passed the Phred QC test.
 
 
+#### Read Length Distribution
+miRNAs are on average 22 nt in length. Therefore, the read-lengths in a smallRNA-seq datasets should be distributed around 22 nt. If a large proportion of reads are outside this distribution, it is a good sign of issues during library preparation. miRTrace flags reads where less than 25 % of reads are in the correct range.
+
+![Read Length](/images/mirtrace-length-plot.png)
+
+In this plot, the three rightmost datasets, read_len_1, read_len_2 and read_len_3, have reads in the incorrect range, and should therefore not be included in an analysis.
+
+#### Quality Control Statistics
 
 
-
-
-
-
+![QC Plot](/images/mirtrace-qc-plot.png)
 
 
 
