@@ -149,7 +149,7 @@ Lastly, miRTrace allows the detection of contaminants in miRNA datasets. Contami
 
 ![Read Contamination](/images/mirtrace-contamination-plot.png)
 
-Now we see the cause of the lower number of detected miRNA genes in contaminated_2 and contaminated_3, the majority of miRNAs in these datasets are from bird/reptile clades! Needless to say, these datasets should also not be included in further analysis!
+Now we see the cause of the lower number of detected miRNA genes in contaminated_2 and contaminated_3! The majority of miRNAs in these datasets are from bird/reptile clades! Needless to say, these datasets should also not be included in further analysis.
 
 
 
