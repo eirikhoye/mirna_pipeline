@@ -134,7 +134,31 @@ It is of course important that the dataset actually contains miRNAs. A low propo
 
 ![RNA Type](/images/mirtrace-rnatype-plot.png)
 
-Again the three rightmost datasets 
+As expected, the three rightmost datasets contained no miRNA reads.
+
+
+#### Number of unique miRNA genes detected
+The number of miRNA genes that have been detected in the sample. Important to note here that MirGeneDB is used here, rather than miRBase with 1881 human miRNA genes, the majority of which have been shown to be false annotations.
+
+![Complexity](/images/mirtrace-complexity-plot.png)
+
+Now we also notice the datasets contaminated_2 and contaminated_3 also had fewer number of detected miRNA genes than expected! As they passed all preceeding QC steps, this is unexpected!
+
+#### Contamination
+Lastly, miRTrace allows the detection of contaminants in miRNA datasets. Contaminated datasets are a strong indication of poor laboratory protocols, or mixup of barcodes when pooling samples on a flow cell. If a study has datasets with contaminants, one should concider not including those datasets in the analysis.
+
+![Read Contamination](/images/mirtrace-contamination-plot.png)
+
+Now we see the cause of the lower number of detected miRNA genes in contaminated_2 and contaminated_3, the majority of miRNAs in these datasets are from bird/reptile clades! Needless to say, these datasets should also not be included in further analysis!
+
+
+
+
+
+
+
+
+
 
 
 ### Dependencies
