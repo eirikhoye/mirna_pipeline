@@ -161,7 +161,7 @@ Now we see the cause of the lower number of detected miRNA genes in contaminated
 
 ### miRge3.0
 
-Now that we have run our datasets through QA, its time to align those that passed to MirGeneDB. To do this, we will use miRge3.0, a state of the art read aligner that is designed specifically for miRNA datasets. miRge3.0 has many advanced features, including detecting A to I editing events, discovery of novel miRNAs, and much more. For further details, see https://mirge3.readthedocs.io/en/latest/quick_start.html. For now, we will simply align our datasets against MirGeneDB and create a count matrix for downstream analysis.
+Now that we have run our datasets through QA, its time to align those that passed to MirGeneDB2.0. To do this, we will use miRge3.0, a state of the art read aligner that is designed specifically for miRNA datasets. miRge3.0 has many advanced features, including detecting A to I editing events, discovery of novel miRNAs, and much more. For further details, see https://mirge3.readthedocs.io/en/latest/quick_start.html. For now, we will simply align our reads to MirGeneDB and create a count matrix for downstream analysis.
 
 First, create a filepaths.txt file containing paths to your datasets:
 ```
