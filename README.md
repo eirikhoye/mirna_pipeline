@@ -483,7 +483,7 @@ signature_mirnas$down_mirna
 # Number of downregulated miRNA
 signature_mirnas$number_downregulated
 ```
-![Volcano Plot pCRC vs nLi](/images/volcanoplot_pcrc_vs_nli)
+![Volcano Plot pCRC vs nLi](/images/volcanoplot_pCRC_vs_nLi)
 
 ## pCRC vs nLu
 ```{R fig.height=8, fig.width=8, message=FALSE, warning=FALSE}
