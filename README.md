@@ -217,25 +217,19 @@ RPM: data/mirge3_output/<date_time>/miR.Counts.csv
 ## Downstream Analysis
 Lets see how the datasets we used compare to each other using DESeq2
 
+
+```{R message=FALSE, warning=FALSE}
+source('/Users/eirikhoy/Dropbox/projects/mirna_pipeline/scripts/deseq_functions.R')
 ```
-# import libraries
-library("tidyverse")
-library("DESeq2")
-library("knitr")
-library('kableExtra')
-library("RColorBrewer")
-library("pheatmap")
-library("dplyr")
-library("BiocParallel")
-library("broman")
-library("gridExtra")
-library("ggpubr")
-library("FactoMineR")
-library("factoextra")
+
+```{R message=FALSE, warning=FALSE}
 "
 Decide the number of cores
 "
 register(MulticoreParam(4))
+```
+
+```{R message=FALSE, warning=FALSE}
 "
 Define threshold for signature miRNA, including effect size, 
 significance therhold, and expression size
@@ -243,6 +237,10 @@ significance therhold, and expression size
 lfc.Threshold <- 0.5849625 # Minimum fold change of interest. NOTE miRNA will usually have modest fold changes
 rpm.Threshold <- 100       # Minimal absolute expression threshold. miRNA must be expressed to be biologically relevant!
 p.Threshold   <- 0.05      # False Discovery Rate threshold
+```
+
+# Import MirGeneDB metadata
+```{r}
 "
 Load MirGeneDB metadata
 "
@@ -250,10 +248,40 @@ Load MirGeneDB metadata
 MirGeneDB_info <- read_delim('/Users/eirikhoy/Dropbox/projects/comet_analysis/data/hsa_MirGeneDB_to_miRBase.csv', delim = ';')
 MirGeneDB_info <- MirGeneDB_info %>% filter(!grepl("-v[2-9]", MirGeneDB_ID)) # keep only -v1
 MirGeneDB_info$MirGeneDB_ID <- str_replace_all(MirGeneDB_info$MirGeneDB_ID, "-v1", "")
+```
+
+
+
+
+# Functions
+
+```{R DESeq2 object function, message=FALSE, warning=FALSE}
+
+
 
 ```
 
+```{R DESeq2 results function, message=FALSE, warning=FALSE}
+
+
 ```
+
+```{R DESeq2 signature miRNA kable list function, message=FALSE, warning=FALSE}
+
+
+```
+
+
+```{R Function Volcano Plot, echo=FALSE, message=FALSE, warning=FALSE}
+
+```
+
+```{R Function Expression Plot, echo=FALSE, message=FALSE, warning=FALSE}
+
+```
+
+
+```{r}
 "
 Load Data
 "
@@ -269,6 +297,22 @@ countdata <- seqdata %>%
   column_to_rownames("miRNA") %>%
   select(sampleinfo$filename) %>%
   as.matrix()
+
+```
+
+
+
+# Differential Expression
+```{R dict of sig, message=FALSE, warning=FALSE}
+"
+Make a named list (dictionary) of diffexp experiments
+"
+dict_sig_mirna <- c()
+res_dict <- list()
+```
+
+
+```{R message=FALSE, warning=FALSE, cache=FALSE}
 "
 Create DESeq2 object
 "
@@ -276,8 +320,28 @@ ref <- 'nCR'
 design <- as.formula(~ type.tissue)
 dds <- DeseqObject(design, 'type.tissue',countdata, sampleinfo, "None", "None", ref)
 
+"
+Print total number of datasets
+"
+dim(dds[, colData(dds)$type.tissue == 'pCRC'])
+dim(dds[, colData(dds)$type.tissue == 'mLi'])
+dim(dds[, colData(dds)$type.tissue == 'mLu'])
+dim(dds[, colData(dds)$type.tissue == 'nCR'])
+dim(dds[, colData(dds)$type.tissue == 'nLi'])
+dim(dds[, colData(dds)$type.tissue == 'nLu'])
+"
+Plot dispersion estimates
+"
+plotDispEsts(dds)
 ```
-```
+
+
+McCall, Matthew N; Kim, Min-Sik; Adil, Mohammed; Patil, Arun H; Lu, Yin; Mitchell, Christopher J; Leal-Rojas, Pamela; Xu, Jinchong; Kumar, Manoj; Dawson, Valina L; Dawson, Ted M; Baras, Alexander S; Rosenberg, Avi Z; Arking, Dan E; Burns, Kathleen H; Pandey, Akhilesh; Halushka, Marc K
+Toward the human cellular microRNAome
+Genome Res.
+October 2017
+
+```{r}
 "
 Create a dictionary of known cell specific miRNAs
 "
@@ -325,12 +389,11 @@ cell_spec_dict <- list(
   )
 
 cell_spec_dict_inv <- topGO::inverseList(cell_spec_dict)
-
 ```
 
-### nCR vs nLi
 
-```
+## nCR vs nLi
+```{R fig.height=8, fig.width=8, message=FALSE, warning=FALSE}
 "
 Define groups to compare
 "
@@ -341,45 +404,23 @@ norm_adj_up   = "None"               # Set diffexp experiment to use as control,
 norm_adj_down = "None"               # Set diffexp experiment to use as control, set None if to not do this
 pCRC_adj_up   = "None"               # Set diffexp experiment to use as control, set None if to not do this
 pCRC_adj_down = "None"               # Set diffexp experiment to use as control, set None if to not do this
-
+coef <- paste(column, tissue_type_A, 'vs', tissue_type_B, sep='_')
 "
 Run DiffExp experiment
 "
-coef <- paste(column, tissue_type_A, 'vs', tissue_type_B, sep='_')  # Define experiment from variables set above
-res <- DeseqResult(dds, column, coef, tissue_type_A, tissue_type_B, # Get diffexp results
-                   lfc.Threshold, rpm.Threshold,
-                   norm_adj_up,
-                   norm_adj_down)
-dict_sig_mirna[paste(coef, "up",   sep='_')] <- list(res$up_mirna)   # Add up-regulated miRNA to diffexp experiment dict
-dict_sig_mirna[paste(coef, "down", sep='_')] <- list(res$down_mirna) # Add down-regulated miRNA to diffexp experiment dict
+result <- (GetResults(dds, column, coef, tissue_type_A, tissue_type_B, 
+                       norm_adj_up, norm_adj_down,
+                       pCRC_adj_up, pCRC_adj_down,
+                       lfc.Threshold, rpm.Threshold))
+res <- result$res
+dict_sig_mirna[paste(coef, 'up', sep='_')] <- list(res$up_mirna)
+dict_sig_mirna[paste(coef, 'down', sep='_')] <- list(res$down_mirna)
 res_res <- res$res
 res_dict[coef] <- res_res
-plotMA(res$res, alpha=0.05)
-
-# Plot volcano plot
-VolcanoPlot(res$res, coef, res$sig, column,
-            res$up_mirna, res$down_mirna,
-            norm_adj_up, norm_adj_down,
-            pCRC_adj_up, pCRC_adj_down)
-
-signature_mirnas <- SigList(res, dds, column, tissue_type_A, tissue_type_B, coef,
-                            norm_adj_up, norm_adj_down, 
-                            pCRC_adj_up, pCRC_adj_down)
-
-# Print list upregulated miRNA
-signature_mirnas$up_mirna
-# Number of upregulated miRNA
-signature_mirnas$number_upregulated
-# Print list downregulated miRNA
-signature_mirnas$down_mirna
-# Number of downregulated miRNA
-signature_mirnas$number_downregulated
-
+result$signature_mirnas$up_mirna
+result$signature_mirnas$down_mirna
 
 ```
-![Volcano Plot nCR vs nLi](/images/volcanoplot_ncr_vs_nli)
-
-
 
 ## nCR vs nLu
 ```{R fig.height=8, fig.width=8, message=FALSE, warning=FALSE}
@@ -393,40 +434,26 @@ norm_adj_up   = "None"               # Set diffexp experiment to use as control,
 norm_adj_down = "None"               # Set diffexp experiment to use as control, set None if to not do this
 pCRC_adj_up   = "None"               # Set diffexp experiment to use as control, set None if to not do this
 pCRC_adj_down = "None"               # Set diffexp experiment to use as control, set None if to not do this
-
+coef <- paste(column, tissue_type_A, 'vs', tissue_type_B, sep='_')
 "
 Run DiffExp experiment
 "
-coef <- paste(column, tissue_type_A, 'vs', tissue_type_B, sep='_')  # Define experiment from variables set above
-res <- DeseqResult(dds, column, coef, tissue_type_A, tissue_type_B, # Get diffexp results
-                   lfc.Threshold, rpm.Threshold,
-                   norm_adj_up,
-                   norm_adj_down)
-dict_sig_mirna[paste(coef, "up",   sep='_')] <- list(res$up_mirna)   # Add up-regulated miRNA to diffexp experiment dict
-dict_sig_mirna[paste(coef, "down", sep='_')] <- list(res$down_mirna) # Add down-regulated miRNA to diffexp experiment dict
+result <- (GetResults(dds, column, coef, tissue_type_A, tissue_type_B, 
+                       norm_adj_up, norm_adj_down,
+                       pCRC_adj_up, pCRC_adj_down,
+                       lfc.Threshold, rpm.Threshold))
+res <- result$res
+dict_sig_mirna[paste(coef, 'up', sep='_')] <- list(res$up_mirna)
+dict_sig_mirna[paste(coef, 'down', sep='_')] <- list(res$down_mirna)
 res_res <- res$res
 res_dict[coef] <- res_res
-plotMA(res$res, alpha=0.05)
-
-# Plot volcano plot
-VolcanoPlot(res$res, coef, res$sig, column,
-            res$up_mirna, res$down_mirna,
-            norm_adj_up, norm_adj_down,
-            pCRC_adj_up, pCRC_adj_down)
-
-signature_mirnas <- SigList(res, dds, column, tissue_type_A, tissue_type_B, coef,
-                            norm_adj_up, norm_adj_down, 
-                            pCRC_adj_up, pCRC_adj_down)
-
-# Print list upregulated miRNA
-signature_mirnas$up_mirna
-# Number of upregulated miRNA
-signature_mirnas$number_upregulated
-# Print list downregulated miRNA
-signature_mirnas$down_mirna
-# Number of downregulated miRNA
-signature_mirnas$number_downregulated
+result$signature_mirnas$up_mirna
+result$signature_mirnas$down_mirna
 ```
+
+
+
+
 
 
 ```{R message=FALSE, warning=FALSE, cache=FALSE}
@@ -434,8 +461,6 @@ ref <- 'pCRC'
 dds <- DeseqObject(design, 'type.tissue', countdata, sampleinfo, "None", "None", ref)
 #
 ```
-![Volcano Plot nCR vs nLu](/images/volcanoplot_ncr_vs_nlu)
-
 
 ## pCRC vs nLi
 ```{R fig.height=8, fig.width=8, message=FALSE, warning=FALSE}
@@ -449,41 +474,23 @@ norm_adj_up   = "None"               # Set diffexp experiment to use as control,
 norm_adj_down = "None"               # Set diffexp experiment to use as control, set None if to not do this
 pCRC_adj_up   = "None"               # Set diffexp experiment to use as control, set None if to not do this
 pCRC_adj_down = "None"               # Set diffexp experiment to use as control, set None if to not do this
-
+coef <- paste(column, tissue_type_A, 'vs', tissue_type_B, sep='_')
 "
 Run DiffExp experiment
 "
-coef <- paste(column, tissue_type_A, 'vs', tissue_type_B, sep='_')  # Define experiment from variables set above
-res <- DeseqResult(dds, column, coef, tissue_type_A, tissue_type_B, # Get diffexp results
-                   lfc.Threshold, rpm.Threshold,
-                   norm_adj_up,
-                   norm_adj_down)
-dict_sig_mirna[paste(coef, "up",   sep='_')] <- list(res$up_mirna)   # Add up-regulated miRNA to diffexp experiment dict
-dict_sig_mirna[paste(coef, "down", sep='_')] <- list(res$down_mirna) # Add down-regulated miRNA to diffexp experiment dict
+result <- (GetResults(dds, column, coef, tissue_type_A, tissue_type_B, 
+                       norm_adj_up, norm_adj_down,
+                       pCRC_adj_up, pCRC_adj_down,
+                       lfc.Threshold, rpm.Threshold))
+res <- result$res
+dict_sig_mirna[paste(coef, 'up', sep='_')] <- list(res$up_mirna)
+dict_sig_mirna[paste(coef, 'down', sep='_')] <- list(res$down_mirna)
 res_res <- res$res
 res_dict[coef] <- res_res
-plotMA(res$res, alpha=0.05)
+result$signature_mirnas$up_mirna
+result$signature_mirnas$down_mirna
 
-# Plot volcano plot
-VolcanoPlot(res$res, coef, res$sig, column,
-            res$up_mirna, res$down_mirna,
-            norm_adj_up, norm_adj_down,
-            pCRC_adj_up, pCRC_adj_down)
-
-signature_mirnas <- SigList(res, dds, column, tissue_type_A, tissue_type_B, coef,
-                            norm_adj_up, norm_adj_down, 
-                            pCRC_adj_up, pCRC_adj_down)
-
-# Print list upregulated miRNA
-signature_mirnas$up_mirna
-# Number of upregulated miRNA
-signature_mirnas$number_upregulated
-# Print list downregulated miRNA
-signature_mirnas$down_mirna
-# Number of downregulated miRNA
-signature_mirnas$number_downregulated
 ```
-![Volcano Plot pCRC vs nLi](/images/volcanoplot_pCRC_vs_nLi)
 
 ## pCRC vs nLu
 ```{R fig.height=8, fig.width=8, message=FALSE, warning=FALSE}
@@ -497,41 +504,23 @@ norm_adj_up   = "None"               # Set diffexp experiment to use as control,
 norm_adj_down = "None"               # Set diffexp experiment to use as control, set None if to not do this
 pCRC_adj_up   = "None"               # Set diffexp experiment to use as control, set None if to not do this
 pCRC_adj_down = "None"               # Set diffexp experiment to use as control, set None if to not do this
-
+coef <- paste(column, tissue_type_A, 'vs', tissue_type_B, sep='_')
 "
 Run DiffExp experiment
 "
-coef <- paste(column, tissue_type_A, 'vs', tissue_type_B, sep='_')  # Define experiment from variables set above
-res <- DeseqResult(dds, column, coef, tissue_type_A, tissue_type_B, # Get diffexp results
-                   lfc.Threshold, rpm.Threshold,
-                   norm_adj_up,
-                   norm_adj_down)
-dict_sig_mirna[paste(coef, "up",   sep='_')] <- list(res$up_mirna)   # Add up-regulated miRNA to diffexp experiment dict
-dict_sig_mirna[paste(coef, "down", sep='_')] <- list(res$down_mirna) # Add down-regulated miRNA to diffexp experiment dict
+result <- (GetResults(dds, column, coef, tissue_type_A, tissue_type_B, 
+                       norm_adj_up, norm_adj_down,
+                       pCRC_adj_up, pCRC_adj_down,
+                       lfc.Threshold, rpm.Threshold))
+res <- result$res
+dict_sig_mirna[paste(coef, 'up', sep='_')] <- list(res$up_mirna)
+dict_sig_mirna[paste(coef, 'down', sep='_')] <- list(res$down_mirna)
 res_res <- res$res
 res_dict[coef] <- res_res
-plotMA(res$res, alpha=0.05)
+result$signature_mirnas$up_mirna
+result$signature_mirnas$down_mirna
 
-# Plot volcano plot
-VolcanoPlot(res$res, coef, res$sig, column,
-            res$up_mirna, res$down_mirna,
-            norm_adj_up, norm_adj_down,
-            pCRC_adj_up, pCRC_adj_down)
-
-signature_mirnas <- SigList(res, dds, column, tissue_type_A, tissue_type_B, coef,
-                            norm_adj_up, norm_adj_down, 
-                            pCRC_adj_up, pCRC_adj_down)
-
-# Print list upregulated miRNA
-signature_mirnas$up_mirna
-# Number of upregulated miRNA
-signature_mirnas$number_upregulated
-# Print list downregulated miRNA
-signature_mirnas$down_mirna
-# Number of downregulated miRNA
-signature_mirnas$number_downregulated
 ```
-![Volcano Plot pCRC vs nLu](/images/volcanoplot_pcrc_vs_nlu)
 
 ```{r}
 "
@@ -579,43 +568,21 @@ norm_adj_down = dict_sig_mirna$type.tissue_nLi_vs_nCR_down # Set diffexp experim
 pCRC_adj_up   = dict_sig_mirna$type.tissue_nLi_vs_pCRC_up        # Set diffexp experiment to use as control
 pCRC_adj_down = dict_sig_mirna$type.tissue_nLi_vs_pCRC_down      # Set diffexp experiment to use as control
 palette <- 'jco'
-
-coef <- paste(column, tissue_type_A, 'vs', tissue_type_B, sep='_')   # Define experiment from variables set above
-res <- DeseqResult(dds, column, coef, tissue_type_A, tissue_type_B,  # Get diffexp results
-                   lfc.Threshold, rpm.Threshold,
-                   norm_adj_up,
-                   norm_adj_down,
-                   pCRC_adj_up,
-                   pCRC_adj_down)
-
-dict_sig_mirna[paste(coef, "up",   sep='_')] <- list(res$up_mirna)    # Add up-regulated miRNA to diffexp experiment dict
-dict_sig_mirna[paste(coef, "down", sep='_')] <- list(res$down_mirna)  # Add down-regulated miRNA to diffexp experiment dict
+coef <- paste(column, tissue_type_A, 'vs', tissue_type_B, sep='_')
+"
+Run DiffExp experiment
+"
+result <- (GetResults(dds, column, coef, tissue_type_A, tissue_type_B, 
+                       norm_adj_up, norm_adj_down,
+                       pCRC_adj_up, pCRC_adj_down,
+                       lfc.Threshold, rpm.Threshold))
+res <- result$res
+dict_sig_mirna[paste(coef, 'up', sep='_')] <- list(res$up_mirna)
+dict_sig_mirna[paste(coef, 'down', sep='_')] <- list(res$down_mirna)
 res_res <- res$res
 res_dict[coef] <- res_res
-plotMA(res$res, alpha=0.05)
-
-"
-Plot volcano plot
-"
-VolcanoPlot(res$res, coef, res$sig, column,
-            res$up_mirna, res$down_mirna,
-            norm_adj_up, norm_adj_down,
-            pCRC_adj_up, pCRC_adj_down)
-
-"
-Plot Exporession Pot
-"
-signature_mirnas <- SigList(res, dds, column, tissue_type_A, tissue_type_B, coef,
-                            norm_adj_up, norm_adj_down, 
-                            pCRC_adj_up, pCRC_adj_down)
-# Print list upregulated miRNA
-signature_mirnas$up_mirna
-# Number of upregulated miRNA
-signature_mirnas$number_upregulated
-# Print list downregulated miRNA
-signature_mirnas$down_mirna
-# Number of downregulated miRNA
-signature_mirnas$number_downregulated
+result$signature_mirnas$up_mirna
+result$signature_mirnas$down_mirna
 
 res_tibble <- res$res
 res_tibble$miRNA <- rownames(res_tibble)
@@ -633,9 +600,6 @@ res_tibble$padj_subt_normal <- mapply( SubtractAdjP, metslfc, normlfc, metsP, no
 
 #res_tibble %>% select(miRNA, log2FoldChange, lfcSE, LFC_adj_background, padj_subt_normal, baseMean, stat, pvalue, padj) %>% write_csv(path = '/Users/eirikhoy/Dropbox/projects/comet_analysis/data/Deseq_result_clm_vs_pcrc.csv')
 ```
-
-![Volcano Plot pCRCvs mLi](/images/volcanoplot_pcrc_vs_mli)
-
 
 ## pCRC vs mLu
 ```{R fig.height=8, fig.width=8, message=FALSE, warning=FALSE}
@@ -652,43 +616,21 @@ norm_adj_down = dict_sig_mirna$type.tissue_nLi_vs_nCR_down # Set diffexp experim
 pCRC_adj_up   = dict_sig_mirna$type.tissue_nLi_vs_pCRC_up        # Set diffexp experiment to use as control
 pCRC_adj_down = dict_sig_mirna$type.tissue_nLi_vs_pCRC_down      # Set diffexp experiment to use as control
 palette <- 'jco'
-
-coef <- paste(column, tissue_type_A, 'vs', tissue_type_B, sep='_')   # Define experiment from variables set above
-res <- DeseqResult(dds, column, coef, tissue_type_A, tissue_type_B,  # Get diffexp results
-                   lfc.Threshold, rpm.Threshold,
-                   norm_adj_up,
-                   norm_adj_down,
-                   pCRC_adj_up,
-                   pCRC_adj_down)
-
-dict_sig_mirna[paste(coef, "up",   sep='_')] <- list(res$up_mirna)    # Add up-regulated miRNA to diffexp experiment dict
-dict_sig_mirna[paste(coef, "down", sep='_')] <- list(res$down_mirna)  # Add down-regulated miRNA to diffexp experiment dict
+coef <- paste(column, tissue_type_A, 'vs', tissue_type_B, sep='_')
+"
+Run DiffExp experiment
+"
+result <- (GetResults(dds, column, coef, tissue_type_A, tissue_type_B, 
+                       norm_adj_up, norm_adj_down,
+                       pCRC_adj_up, pCRC_adj_down,
+                       lfc.Threshold, rpm.Threshold))
+res <- result$res
+dict_sig_mirna[paste(coef, 'up', sep='_')] <- list(res$up_mirna)
+dict_sig_mirna[paste(coef, 'down', sep='_')] <- list(res$down_mirna)
 res_res <- res$res
 res_dict[coef] <- res_res
-plotMA(res$res, alpha=0.05)
-
-"
-Plot volcano plot
-"
-VolcanoPlot(res$res, coef, res$sig, column,
-            res$up_mirna, res$down_mirna,
-            norm_adj_up, norm_adj_down,
-            pCRC_adj_up, pCRC_adj_down)
-
-"
-Plot Exporession Pot
-"
-signature_mirnas <- SigList(res, dds, column, tissue_type_A, tissue_type_B, coef,
-                            norm_adj_up, norm_adj_down, 
-                            pCRC_adj_up, pCRC_adj_down)
-# Print list upregulated miRNA
-signature_mirnas$up_mirna
-# Number of upregulated miRNA
-signature_mirnas$number_upregulated
-# Print list downregulated miRNA
-signature_mirnas$down_mirna
-# Number of downregulated miRNA
-signature_mirnas$number_downregulated
+result$signature_mirnas$up_mirna
+result$signature_mirnas$down_mirna
 
 res_tibble <- res$res
 res_tibble$miRNA <- rownames(res_tibble)
@@ -706,7 +648,6 @@ res_tibble$padj_subt_normal <- mapply( SubtractAdjP, metslfc, normlfc, metsP, no
 
 #res_tibble %>% select(miRNA, log2FoldChange, lfcSE, LFC_adj_background, padj_subt_normal, baseMean, stat, pvalue, padj) %>% write_csv(path = '/Users/eirikhoy/Dropbox/projects/comet_analysis/data/Deseq_result_clm_vs_pcrc.csv')
 ```
-![Volcano Plot pCRC vs mLu](/images/volcanoplot_pcrc_vs_mli)
 
 ```{r}
 
