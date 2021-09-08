@@ -220,16 +220,10 @@ Lets see how the datasets we used compare to each other using DESeq2
 
 ```{R message=FALSE, warning=FALSE}
 source('/Users/eirikhoy/Dropbox/projects/mirna_pipeline/scripts/deseq_functions.R')
-```
-
-```{R message=FALSE, warning=FALSE}
 "
 Decide the number of cores
 "
 register(MulticoreParam(4))
-```
-
-```{R message=FALSE, warning=FALSE}
 "
 Define threshold for signature miRNA, including effect size, 
 significance therhold, and expression size
@@ -249,37 +243,6 @@ MirGeneDB_info <- read_delim('/Users/eirikhoy/Dropbox/projects/comet_analysis/da
 MirGeneDB_info <- MirGeneDB_info %>% filter(!grepl("-v[2-9]", MirGeneDB_ID)) # keep only -v1
 MirGeneDB_info$MirGeneDB_ID <- str_replace_all(MirGeneDB_info$MirGeneDB_ID, "-v1", "")
 ```
-
-
-
-
-# Functions
-
-```{R DESeq2 object function, message=FALSE, warning=FALSE}
-
-
-
-```
-
-```{R DESeq2 results function, message=FALSE, warning=FALSE}
-
-
-```
-
-```{R DESeq2 signature miRNA kable list function, message=FALSE, warning=FALSE}
-
-
-```
-
-
-```{R Function Volcano Plot, echo=FALSE, message=FALSE, warning=FALSE}
-
-```
-
-```{R Function Expression Plot, echo=FALSE, message=FALSE, warning=FALSE}
-
-```
-
 
 ```{r}
 "
@@ -648,11 +611,6 @@ res_tibble$padj_subt_normal <- mapply( SubtractAdjP, metslfc, normlfc, metsP, no
 
 #res_tibble %>% select(miRNA, log2FoldChange, lfcSE, LFC_adj_background, padj_subt_normal, baseMean, stat, pvalue, padj) %>% write_csv(path = '/Users/eirikhoy/Dropbox/projects/comet_analysis/data/Deseq_result_clm_vs_pcrc.csv')
 ```
-
-```{r}
-
-```
-
 
 
 
