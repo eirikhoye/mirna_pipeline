@@ -377,6 +377,7 @@ signature_mirnas$number_downregulated
 
 
 ```
+![Volcano Plot nCR vs nLi](/images/volcanoplot_ncr_vs_nli.jpg)
 
 
 
@@ -433,6 +434,7 @@ ref <- 'pCRC'
 dds <- DeseqObject(design, 'type.tissue', countdata, sampleinfo, "None", "None", ref)
 #
 ```
+![Volcano Plot nCR vs nLu](/images/volcanoplot_ncr_vs_nlu.jpg)
 
 
 ## pCRC vs nLi
@@ -481,6 +483,7 @@ signature_mirnas$down_mirna
 # Number of downregulated miRNA
 signature_mirnas$number_downregulated
 ```
+![Volcano Plot pCRC vs nLi](/images/volcanoplot_pcrc_vs_nli.jpg)
 
 ## pCRC vs nLu
 ```{R fig.height=8, fig.width=8, message=FALSE, warning=FALSE}
@@ -528,6 +531,7 @@ signature_mirnas$down_mirna
 # Number of downregulated miRNA
 signature_mirnas$number_downregulated
 ```
+![Volcano Plot pCRC vs nLu](/images/volcanoplot_pcrc_vs_nlu.jpg)
 
 ```{r}
 "
@@ -630,6 +634,9 @@ res_tibble$padj_subt_normal <- mapply( SubtractAdjP, metslfc, normlfc, metsP, no
 #res_tibble %>% select(miRNA, log2FoldChange, lfcSE, LFC_adj_background, padj_subt_normal, baseMean, stat, pvalue, padj) %>% write_csv(path = '/Users/eirikhoy/Dropbox/projects/comet_analysis/data/Deseq_result_clm_vs_pcrc.csv')
 ```
 
+![Volcano Plot pCRCvs mLi](/images/volcanoplot_pcrc_vs_mli.jpg)
+
+
 ## pCRC vs mLu
 ```{R fig.height=8, fig.width=8, message=FALSE, warning=FALSE}
 
@@ -699,6 +706,7 @@ res_tibble$padj_subt_normal <- mapply( SubtractAdjP, metslfc, normlfc, metsP, no
 
 #res_tibble %>% select(miRNA, log2FoldChange, lfcSE, LFC_adj_background, padj_subt_normal, baseMean, stat, pvalue, padj) %>% write_csv(path = '/Users/eirikhoy/Dropbox/projects/comet_analysis/data/Deseq_result_clm_vs_pcrc.csv')
 ```
+![Volcano Plot pCRC vs mLu](/images/volcanoplot_pcrc_vs_mli.jpg)
 
 ```{r}
 
