@@ -9,7 +9,7 @@ Integrates both public repositories and own smallRNA-seq data. Quality control w
 </p>
 
 <p align="center">
-  <src=/images/miRNA_pipeline.jpg>
+  <src="/images/miRNA_pipeline.jpg">
 </p>
 
 ### References:
