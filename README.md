@@ -1,5 +1,5 @@
 <p align="center">
-<img src=/images/miRNA_pipeline.jpg>
+<img src="/images/miRNA_pipeline.jpg">
 </p>
 
 >
