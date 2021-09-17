@@ -1,4 +1,7 @@
-<p align="center">![miRNA Pipeline](/images/miRNA_pipeline.jpg)
+<p align="center">
+![miRNA Pipeline](/images/miRNA_pipeline.jpg)
+</p>
+
 >
 ## Analysis pipeline for "A microRNA Signature of Metastatic Colorectal Cancer"
 A reproducible analysis pipeline for the manuscript "A microRNA Signature of Metastatic Colorectal Cancer" by Høye et al. 
