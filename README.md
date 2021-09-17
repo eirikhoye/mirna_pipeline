@@ -15,6 +15,34 @@ miRTrace [Genome Biology (2018)](https://genomebiology.biomedcentral.com/article
 miRge3.0 [bioRxiv (2021)](https://www.biorxiv.org/content/10.1101/2021.01.18.427129v1). 
 > Patil HP; Halushka MR miRge3.0: a comprehensive microRNA and tRF sequencing analysis pipeline. bioRxiv 2021.01.18.427129
 
+
+
+
+
+
+# Table of Contents
+* [Team Members](#team-members)
+
+# <a name="team-members"></a>Team Members
+* "J. Jesus. P. Aguinaga" <admin@listforks.com>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### Set up singularity container
 ```
 # on a host with singularity installed, first clone the repository
