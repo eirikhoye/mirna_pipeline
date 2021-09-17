@@ -85,7 +85,9 @@ Note, in order to work with your data in a singularity container you must mount 
 ## Tutorial
 Lets give an example using the FASTQ files in fastq_toy directory, using this study desgin:
 
-![Study Design](/images/study_design.png)
+<p align="center">
+<img src="/images/study_design.png" width="350" title="Study Design">
+</p>
 
 
 First things first, lets do QC on these samples with miRTrace! miRTrace takes raw FASTQ files as input and outputs nicely formatted QC reports, and will also assess potential contamination.
