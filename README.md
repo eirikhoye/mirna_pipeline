@@ -86,7 +86,7 @@ Note, in order to work with your data in a singularity container you must mount 
 Lets give an example using the FASTQ files in fastq_toy directory, using this study desgin:
 
 <p align="center">
-<img src="/images/study_design.png" width="350" title="Study Design">
+<img src="/images/study_design.png" width="500" title="Study Design">
 </p>
 
 
