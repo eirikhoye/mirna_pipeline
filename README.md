@@ -244,6 +244,8 @@ RPM: data/mirge3_output/<date_time>/miR.Counts.csv
 ## Downstream Analysis
 Lets see how the datasets we used compare to each other using DESeq2
 
+First lets load some useful functions from scripts/deseq_functions.R, then define some global parameters:
+As miRNA generally have modest fold changes, lets set a minimal LFC threshold of 0.58 (1.5 times greater or less). Also, it is important to concider absolute expression levels, here lets set a minimum threshold of 100 RPM. Lets also set a minimal FDR rate of 0.05.
 
 ```{R message=FALSE, warning=FALSE}
 source('/Users/eirikhoy/Dropbox/projects/mirna_pipeline/scripts/deseq_functions.R')
@@ -260,6 +262,8 @@ rpm.Threshold <- 100       # Minimal absolute expression threshold. miRNA must b
 p.Threshold   <- 0.05      # False Discovery Rate threshold
 ```
 
+
+In addition, to make better 
 # Import MirGeneDB metadata
 ```{r}
 "
@@ -270,6 +274,8 @@ MirGeneDB_info <- read_delim('/Users/eirikhoy/Dropbox/projects/comet_analysis/da
 MirGeneDB_info <- MirGeneDB_info %>% filter(!grepl("-v[2-9]", MirGeneDB_ID)) # keep only -v1
 MirGeneDB_info$MirGeneDB_ID <- str_replace_all(MirGeneDB_info$MirGeneDB_ID, "-v1", "")
 ```
+
+
 
 ```{r}
 "
