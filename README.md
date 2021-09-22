@@ -606,10 +606,10 @@ res_tibble$padj_subt_normal <- mapply( SubtractAdjP, metslfc, normlfc, metsP, no
 <img src="/images/volcanoplot_pcrc_vs_mli" width="350" title="volcanoplot_pcrc_vs_mli">
 </p>
 <p align="center">
-<img src="/images/Table_pcrc_vs_mli_up.png" width="50000" title="Table_pcrc_vs_mli_up.png">
+<img src="/images/Table_pcrc_vs_mli_up.png" title="Table_pcrc_vs_mli_up.png">
 </p>
 <p align="center">
-<img src="/images/Table_pcrc_vs_mli_down.png" width="50000" title="Table_pcrc_vs_mli_down.png">
+<img src="/images/Table_pcrc_vs_mli_down.png" title="Table_pcrc_vs_mli_down.png">
 </p>
 
 
@@ -673,10 +673,10 @@ res_tibble$padj_subt_normal <- mapply( SubtractAdjP, metslfc, normlfc, metsP, no
 <img src="/images/volcanoplot_pcrc_vs_mli" width="350" title="volcanoplot_pcrc_vs_mli">
 </p>
 <p align="center">
-<img src="/images/Table_pcrc_vs_mlu_up.png" width="50000" title="Table_pcrc_vs_mlu_up.png">
+<img src="/images/Table_pcrc_vs_mlu_up.png" title="Table_pcrc_vs_mlu_up.png">
 </p>
 <p align="center">
-<img src="/images/Table_pcrc_vs_mlu_down.png" width="50000" title="Table_pcrc_vs_mlu_down.png">
+<img src="/images/Table_pcrc_vs_mlu_down.png" title="Table_pcrc_vs_mlu_down.png">
 </p>
 
 
