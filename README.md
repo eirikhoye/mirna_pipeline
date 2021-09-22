@@ -424,6 +424,7 @@ result$signature_mirnas$up_mirna
 result$signature_mirnas$down_mirna
 
 ```
+![volcanoplot_ncr_vs_nli](/images/volcanoplot_ncr_vs_nli.png)
 
 Lets also make a comparison between normal colon and normal lung. The only difference here is to specify nLu as the numerator.
 ## nCR vs nLu
