@@ -332,6 +332,9 @@ plotDispEsts(dds)
 ```
 ![DispEsts](/images/plotDispEst.png)
 
+In DESeq2, an estimated gene wide mean dispersion is used to fit gene dispersions. This is  important becayse RNAseq count data is heteroscedastic, lowly expressed genes have higher dispersion than highly expressed genes. Fitting gene dispersions towards the fitted line will reduce overestimation of fold changes for lowly expressed genes.
+
+Now, lets also make a dictionary of miRNAs that have been reported to be cell type specific. This can be useful in interpreting differences differentially expressed miRNAs. 
 
 McCall, Matthew N; Kim, Min-Sik; Adil, Mohammed; Patil, Arun H; Lu, Yin; Mitchell, Christopher J; Leal-Rojas, Pamela; Xu, Jinchong; Kumar, Manoj; Dawson, Valina L; Dawson, Ted M; Baras, Alexander S; Rosenberg, Avi Z; Arking, Dan E; Burns, Kathleen H; Pandey, Akhilesh; Halushka, Marc K
 Toward the human cellular microRNAome
@@ -388,6 +391,14 @@ cell_spec_dict <- list(
 cell_spec_dict_inv <- topGO::inverseList(cell_spec_dict)
 ```
 
+Finally, we can run the actuall differential expression analysis. Firstly we will compare normal colon to normal liver.
+
+The first part of this code chunk consists of a set of variable definitions. The first is "column" which will decide which column in the sample_info file will be used to define the experimental design. tissue_type_A sets which tissue will be the numerator, while tissue_type_B sets which column will be the denominator. Here we will be comparing normal tissues, so norm_adj_up, norm_adj_down and pCRC_adj_up and pCRC_adj_down will be left "None". However when we compare the tumor tissues, this is where we would specify which tissues are to be the normal background expression control.
+
+The rest of the code chunk is the same regardless of which experiment you wish to run. 
+
+Two important lines here are the two dict_sig_mirna lines. This will store the results of this differential expression analysis in a dictionary, which will allow us to call upon them when comparing tumor tissues.
+
 
 ## nCR vs nLi
 ```{R fig.height=8, fig.width=8, message=FALSE, warning=FALSE}
@@ -395,8 +406,8 @@ cell_spec_dict_inv <- topGO::inverseList(cell_spec_dict)
 Define groups to compare
 "
 column='type.tissue'                 # Column to distinguish
-tissue_type_A <- 'nLi'      # Tissue Type to be numerator
-tissue_type_B <- 'nCR'   # Tissue Type to be denominator
+tissue_type_A <- 'nLi'               # Tissue Type to be numerator
+tissue_type_B <- 'nCR'               # Tissue Type to be denominator
 norm_adj_up   = "None"               # Set diffexp experiment to use as control, set None if to not do this
 norm_adj_down = "None"               # Set diffexp experiment to use as control, set None if to not do this
 pCRC_adj_up   = "None"               # Set diffexp experiment to use as control, set None if to not do this
@@ -419,14 +430,15 @@ result$signature_mirnas$down_mirna
 
 ```
 
+Lets also make a comparison between normal colon and normal lung. The only difference here is to specify nLu as the numerator.
 ## nCR vs nLu
 ```{R fig.height=8, fig.width=8, message=FALSE, warning=FALSE}
 "
 Define groups to compare
 "
 column='type.tissue'                 # Column to distinguish
-tissue_type_A <- 'nLu'      # Tissue Type to be numerator
-tissue_type_B <- 'nCR'   # Tissue Type to be denominator
+tissue_type_A <- 'nLu'               # Tissue Type to be numerator
+tissue_type_B <- 'nCR'               # Tissue Type to be denominator
 norm_adj_up   = "None"               # Set diffexp experiment to use as control, set None if to not do this
 norm_adj_down = "None"               # Set diffexp experiment to use as control, set None if to not do this
 pCRC_adj_up   = "None"               # Set diffexp experiment to use as control, set None if to not do this
@@ -459,14 +471,16 @@ dds <- DeseqObject(design, 'type.tissue', countdata, sampleinfo, "None", "None",
 #
 ```
 
+It is also important to compare the primary tumor against the normal adjacent metastatic tissues. The next two code chunks are identical to the two prior, except we set pCRC in the denominator.
+
 ## pCRC vs nLi
 ```{R fig.height=8, fig.width=8, message=FALSE, warning=FALSE}
 "
 Define groups to compare
 "
 column='type.tissue'                 # Column to distinguish
-tissue_type_A <- 'nLi'      # Tissue Type to be numerator
-tissue_type_B <- 'pCRC'    # Tissue Type to be denominator
+tissue_type_A <- 'nLi'               # Tissue Type to be numerator
+tissue_type_B <- 'pCRC'              # Tissue Type to be denominator
 norm_adj_up   = "None"               # Set diffexp experiment to use as control, set None if to not do this
 norm_adj_down = "None"               # Set diffexp experiment to use as control, set None if to not do this
 pCRC_adj_up   = "None"               # Set diffexp experiment to use as control, set None if to not do this
@@ -495,8 +509,8 @@ result$signature_mirnas$down_mirna
 Define groups to compare
 "
 column='type.tissue'                 # Column to distinguish
-tissue_type_A <- 'nLu'      # Tissue Type to be numerator
-tissue_type_B <- 'pCRC'    # Tissue Type to be denominator
+tissue_type_A <- 'nLu'               # Tissue Type to be numerator
+tissue_type_B <- 'pCRC'              # Tissue Type to be denominator
 norm_adj_up   = "None"               # Set diffexp experiment to use as control, set None if to not do this
 norm_adj_down = "None"               # Set diffexp experiment to use as control, set None if to not do this
 pCRC_adj_up   = "None"               # Set diffexp experiment to use as control, set None if to not do this
@@ -518,6 +532,8 @@ result$signature_mirnas$up_mirna
 result$signature_mirnas$down_mirna
 
 ```
+The most important function of running these experiments was to store the results in the dict_sig_mirna dictionary. This will allow us to call them during the differential expression of the tumor tissues, and avoid potential confounders due to presence of normal adjacent tissue cells!
+
 
 ```{r}
 "
@@ -549,6 +565,12 @@ SubtractAdjP <- function(x , y, xP, yP){
 }
 ```
 
+Finally, we are ready to run the differential expression analysis between primary tumor and the metastatic sites! 
+
+The only difference this time around is that we also specify the experiments to use to control for normal background expression. If a differentially expressed miRNA is differentially expressed in the same direction in the normal background tissue, they are flagged as such in the list of differentially expressed miRNAs.
+
+First lets run pCRC versus mLi, and use nLi vs nCR and also pCRC vs nLi, to control for normal background expression.
+
 
 ## pCRC vs mLi
 ```{R fig.height=8, fig.width=8, message=FALSE, warning=FALSE}
@@ -557,13 +579,13 @@ SubtractAdjP <- function(x , y, xP, yP){
 Primary tumor versus metastasis, control also with pCRC versus normal liver
 "
 
-column='type.tissue'                 # Column to distinguish
-tissue_type_A <- 'mLi'  # Tissue Type to be numerator
-tissue_type_B <- 'pCRC'    # Tissue Type to be denominator
-norm_adj_up   = dict_sig_mirna$type.tissue_nLi_vs_nCR_up   # Set diffexp experiment to use as control
-norm_adj_down = dict_sig_mirna$type.tissue_nLi_vs_nCR_down # Set diffexp experiment to use as control
-pCRC_adj_up   = dict_sig_mirna$type.tissue_nLi_vs_pCRC_up        # Set diffexp experiment to use as control
-pCRC_adj_down = dict_sig_mirna$type.tissue_nLi_vs_pCRC_down      # Set diffexp experiment to use as control
+column='type.tissue'                                           # Column to distinguish
+tissue_type_A <- 'mLi'                                         # Tissue Type to be numerator
+tissue_type_B <- 'pCRC'                                        # Tissue Type to be denominator
+norm_adj_up   = dict_sig_mirna$type.tissue_nLi_vs_nCR_up       # Set diffexp experiment to use as control
+norm_adj_down = dict_sig_mirna$type.tissue_nLi_vs_nCR_down     # Set diffexp experiment to use as control
+pCRC_adj_up   = dict_sig_mirna$type.tissue_nLi_vs_pCRC_up      # Set diffexp experiment to use as control
+pCRC_adj_down = dict_sig_mirna$type.tissue_nLi_vs_pCRC_down    # Set diffexp experiment to use as control
 palette <- 'jco'
 coef <- paste(column, tissue_type_A, 'vs', tissue_type_B, sep='_')
 "
@@ -598,6 +620,8 @@ res_tibble$padj_subt_normal <- mapply( SubtractAdjP, metslfc, normlfc, metsP, no
 #res_tibble %>% select(miRNA, log2FoldChange, lfcSE, LFC_adj_background, padj_subt_normal, baseMean, stat, pvalue, padj) %>% write_csv(path = '/Users/eirikhoy/Dropbox/projects/comet_analysis/data/Deseq_result_clm_vs_pcrc.csv')
 ```
 
+Lets also run pCRC versus mLu, and use nLu vs nCR, and also nLu vs pCRC, to control for normal background expression.
+
 ## pCRC vs mLu
 ```{R fig.height=8, fig.width=8, message=FALSE, warning=FALSE}
 
@@ -605,13 +629,13 @@ res_tibble$padj_subt_normal <- mapply( SubtractAdjP, metslfc, normlfc, metsP, no
 Primary tumor versus metastasis, control also with pCRC versus normal liver
 "
 
-column='type.tissue'                 # Column to distinguish
-tissue_type_A <- 'mLu'  # Tissue Type to be numerator
-tissue_type_B <- 'pCRC'    # Tissue Type to be denominator
-norm_adj_up   = dict_sig_mirna$type.tissue_nLi_vs_nCR_up   # Set diffexp experiment to use as control
-norm_adj_down = dict_sig_mirna$type.tissue_nLi_vs_nCR_down # Set diffexp experiment to use as control
-pCRC_adj_up   = dict_sig_mirna$type.tissue_nLi_vs_pCRC_up        # Set diffexp experiment to use as control
-pCRC_adj_down = dict_sig_mirna$type.tissue_nLi_vs_pCRC_down      # Set diffexp experiment to use as control
+column='type.tissue'                                           # Column to distinguish
+tissue_type_A <- 'mLu'                                         # Tissue Type to be numerator
+tissue_type_B <- 'pCRC'                                        # Tissue Type to be denominator
+norm_adj_up   = dict_sig_mirna$type.tissue_nLu_vs_nCR_up       # Set diffexp experiment to use as control
+norm_adj_down = dict_sig_mirna$type.tissue_nLu_vs_nCR_down     # Set diffexp experiment to use as control
+pCRC_adj_up   = dict_sig_mirna$type.tissue_nLu_vs_pCRC_up      # Set diffexp experiment to use as control
+pCRC_adj_down = dict_sig_mirna$type.tissue_nLu_vs_pCRC_down    # Set diffexp experiment to use as control
 palette <- 'jco'
 coef <- paste(column, tissue_type_A, 'vs', tissue_type_B, sep='_')
 "
