@@ -86,7 +86,7 @@ Note, in order to work with your data in a singularity container you must mount 
 Lets give an example using the FASTQ files in fastq_toy directory, using this study desgin:
 
 <p align="center">
-<img src="/images/study_design.png" width="500" title="Study Design">
+<img src="/images/study_design.png" width="350" title="Study Design">
 </p>
 
 
@@ -424,7 +424,12 @@ result$signature_mirnas$up_mirna
 result$signature_mirnas$down_mirna
 
 ```
-![volcanoplot_ncr_vs_nli](/images/volcanoplot_ncr_vs_nli)
+
+<p align="center">
+<img src="/images/volcanoplot_ncr_vs_nli" width="350" title="volcanoplot_ncr_vs_nli">
+</p>
+
+
 
 Lets also make a comparison between normal colon and normal lung. The only difference here is to specify nLu as the numerator.
 ## nCR vs nLu
@@ -455,6 +460,9 @@ res_dict[coef] <- res_res
 result$signature_mirnas$up_mirna
 result$signature_mirnas$down_mirna
 ```
+<p align="center">
+<img src="/images/volcanoplot_ncr_vs_nlu" width="350" title="volcanoplot_ncr_vs_nlu">
+</p>
 
 
 
@@ -498,6 +506,9 @@ result$signature_mirnas$up_mirna
 result$signature_mirnas$down_mirna
 
 ```
+<p align="center">
+<img src="/images/volcanoplot_pcrc_vs_nli" width="350" title="volcanoplot_pcrc_vs_nli">
+</p>
 
 ## pCRC vs nLu
 ```{R fig.height=8, fig.width=8, message=FALSE, warning=FALSE}
@@ -528,38 +539,14 @@ result$signature_mirnas$up_mirna
 result$signature_mirnas$down_mirna
 
 ```
+<p align="center">
+<img src="/images/volcanoplot_pcrc_vs_nlu" width="350" title="volcanoplot_pcrc_vs_nlu">
+</p>
+
 The most important function of running these experiments was to store the results in the dict_sig_mirna dictionary. This will allow us to call them during the differential expression of the tumor tissues, and avoid potential confounders due to presence of normal adjacent tissue cells!
 
 
-```{r}
-"
-Functions to adjust LFC and FDR depending on expression in normal tissue 
-"
-SubtractLFC <- function(x, y){
-  "
-  LFC is reduced to zero by value in control group if value in control 
-  group has the same sign.
-  "
-  z = x
-  if ( is.na(x) | is.na(y) ){ return( z ) }
-  else if (sign(x) == sign(y)){ z = x - y }
-  if (sign(z) != sign(x)) { z = 0 }
-  return( z )
-}
 
-SubtractAdjP <- function(x , y, xP, yP){
-  "
-  adjP value is increase to 1 by value in control group if 
-  LFC in control group has the same sign.
-  "
-  z = xP
-  if ( is.na(xP) | is.na(yP) ){ return( z ) }
-  if ( sign(x) == sign(y) ){ 
-    z = (xP + ( 1 - yP )) }
-  if (z > 1) {z = 1}
-  return(z)
-}
-```
 
 Finally, we are ready to run the differential expression analysis between primary tumor and the metastatic sites! 
 
@@ -615,6 +602,9 @@ res_tibble$padj_subt_normal <- mapply( SubtractAdjP, metslfc, normlfc, metsP, no
 
 #res_tibble %>% select(miRNA, log2FoldChange, lfcSE, LFC_adj_background, padj_subt_normal, baseMean, stat, pvalue, padj) %>% write_csv(path = '/Users/eirikhoy/Dropbox/projects/comet_analysis/data/Deseq_result_clm_vs_pcrc.csv')
 ```
+<p align="center">
+<img src="/images/volcanoplot_pcrc_vs_mli" width="350" title="volcanoplot_pcrc_vs_mli">
+</p>
 
 Lets also run pCRC versus mLu, and use nLu vs nCR, and also nLu vs pCRC, to control for normal background expression.
 
@@ -665,6 +655,9 @@ res_tibble$padj_subt_normal <- mapply( SubtractAdjP, metslfc, normlfc, metsP, no
 
 #res_tibble %>% select(miRNA, log2FoldChange, lfcSE, LFC_adj_background, padj_subt_normal, baseMean, stat, pvalue, padj) %>% write_csv(path = '/Users/eirikhoy/Dropbox/projects/comet_analysis/data/Deseq_result_clm_vs_pcrc.csv')
 ```
+<p align="center">
+<img src="/images/volcanoplot_pcrc_vs_mli" width="350" title="volcanoplot_pcrc_vs_mli">
+</p>
 
 
 
