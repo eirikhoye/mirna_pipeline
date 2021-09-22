@@ -608,11 +608,13 @@ res_tibble$padj_subt_normal <- mapply( SubtractAdjP, metslfc, normlfc, metsP, no
 <p align="center">
 <img src="/images/Table_pcrc_vs_mli_up.png" title="Table_pcrc_vs_mli_up.png">
 </p>
+Here we see four upregulated miRNAs: Hsa-Mir-204-P1_5p, Hsa-Mir-335_5p, Hsa-Mir-122_5p and Hsa-Mir-10-P2a_5p. However, all of them are also upregulated in the surounding normal tissue, thus these likely reflect the effect of normal background expression. Indeed, Mir-122_5p is specific to hepatocytes, so its apparent upregulation likely reflects the presence of some normal hepatocytes in the metastasis tissue.
+
 <p align="center">
 <img src="/images/Table_pcrc_vs_mli_down.png" title="Table_pcrc_vs_mli_down.png">
 </p>
 
-
+Also of note, Hsa-Mir-486_5p is much lower in mLi (1336 RPM) compared to pCRC (7914 RPM). Again, when looking at the cell type specific column, we see that this miRNA is specific to platelet and red blood cells. Thus, the lower expression of this miRNA in mLi tissue may be reflective of a more hypoxic microenvironment in mLi. 
 
 
 
@@ -675,10 +677,13 @@ res_tibble$padj_subt_normal <- mapply( SubtractAdjP, metslfc, normlfc, metsP, no
 <p align="center">
 <img src="/images/Table_pcrc_vs_mlu_up.png" title="Table_pcrc_vs_mlu_up.png">
 </p>
+
+Here we see up to nine apparently upregulated miRNAs, however five of them are likely due to normal background expression. Hsa-Mir-205-P1_5p, Hsa-Mir-34-P2b_5p and Hsa-Mir-146-P1_5p, however, can not be explained as due to background expression, thus may be reflective of site specific adaptations to the new lung microenvironment. Notably, the lymphocyte specific Mir-146-P2_5p was also much higher in mLu (15251 RPM vs 1551 RPM) , possibly reflecting a higher density of lymphocytes in this new microenvironment.
+
 <p align="center">
 <img src="/images/Table_pcrc_vs_mlu_down.png" title="Table_pcrc_vs_mlu_down.png">
 </p>
-
+Six miRNA also had lower expression in mLu, two of which likely reflect normal background expression. Furthermore the hepatocyte specific Hsa-Mir-122_5p had no reads in mLu, and again the platelet and red blood cell specific Hsa-Mir-486_5p had much lower expression levels, possibly reflecting a more hypoxic microenviornment in the metastatic lesions. Hsa-Mir-127_3p and Hsa-Mir-361_3p* also had lower expression in mLu, possibly reflecting site specific adaptations.
 
 
 
