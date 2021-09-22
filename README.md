@@ -605,6 +605,20 @@ res_tibble$padj_subt_normal <- mapply( SubtractAdjP, metslfc, normlfc, metsP, no
 <p align="center">
 <img src="/images/volcanoplot_pcrc_vs_mli" width="350" title="volcanoplot_pcrc_vs_mli">
 </p>
+<p align="center">
+<img src="/images/Table_pcrc_vs_mli_up.png" width="50000" title="Table_pcrc_vs_mli_up.png">
+</p>
+<p align="center">
+<img src="/images/Table_pcrc_vs_mli_down.png" width="50000" title="Table_pcrc_vs_mli_down.png">
+</p>
+
+
+
+
+
+
+
+
 
 Lets also run pCRC versus mLu, and use nLu vs nCR, and also nLu vs pCRC, to control for normal background expression.
 
@@ -657,6 +671,12 @@ res_tibble$padj_subt_normal <- mapply( SubtractAdjP, metslfc, normlfc, metsP, no
 ```
 <p align="center">
 <img src="/images/volcanoplot_pcrc_vs_mli" width="350" title="volcanoplot_pcrc_vs_mli">
+</p>
+<p align="center">
+<img src="/images/Table_pcrc_vs_mlu_up.png" width="50000" title="Table_pcrc_vs_mlu_up.png">
+</p>
+<p align="center">
+<img src="/images/Table_pcrc_vs_mlu_down.png" width="50000" title="Table_pcrc_vs_mlu_down.png">
 </p>
 
 
