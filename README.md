@@ -263,7 +263,8 @@ p.Threshold   <- 0.05      # False Discovery Rate threshold
 ```
 
 
-In addition, to make better 
+In addition we will load a .csv file with MirGeneDB metadata that makes it easier to print nice report tables:
+
 # Import MirGeneDB metadata
 ```{r}
 "
@@ -276,6 +277,7 @@ MirGeneDB_info$MirGeneDB_ID <- str_replace_all(MirGeneDB_info$MirGeneDB_ID, "-v1
 ```
 
 
+We will now load the sample info file and the seqdata (count matrix). The sample info file specifies the tissue of origin for each dataset, while the seqdata file have read counts for each MirGeneDB annotated gene.
 
 ```{r}
 "
