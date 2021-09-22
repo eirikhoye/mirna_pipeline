@@ -277,7 +277,7 @@ MirGeneDB_info$MirGeneDB_ID <- str_replace_all(MirGeneDB_info$MirGeneDB_ID, "-v1
 ```
 
 
-We will now load the sample info file and the seqdata (count matrix). The sample info file specifies the tissue of origin for each dataset, while the seqdata file have read counts for each MirGeneDB annotated gene.
+We will now load the sample info file and the seqdata (count matrix). The sample info file specifies the tissue of origin for each dataset, while the seqdata file have read counts for each MirGeneDB annotated gene. We also have to reformat the count matrix from a tibble object to a matrix object, since DESeq2 requries matrix as input.
 
 ```{r}
 "
@@ -298,7 +298,7 @@ countdata <- seqdata %>%
 
 ```
 
-
+Now we are almost ready to begin the differential expression analysis, but first we will create a few dictionaries. The reason for this will become more clear further down.
 
 # Differential Expression
 ```{R dict of sig, message=FALSE, warning=FALSE}
@@ -309,6 +309,7 @@ dict_sig_mirna <- c()
 res_dict <- list()
 ```
 
+Secondly we must create a deseq object, called dds:
 
 ```{R message=FALSE, warning=FALSE, cache=FALSE}
 "
@@ -319,15 +320,7 @@ design <- as.formula(~ type.tissue)
 dds <- DeseqObject(design, 'type.tissue',countdata, sampleinfo, "None", "None", ref)
 
 "
-Print total number of datasets
-"
-dim(dds[, colData(dds)$type.tissue == 'pCRC'])
-dim(dds[, colData(dds)$type.tissue == 'mLi'])
-dim(dds[, colData(dds)$type.tissue == 'mLu'])
-dim(dds[, colData(dds)$type.tissue == 'nCR'])
-dim(dds[, colData(dds)$type.tissue == 'nLi'])
-dim(dds[, colData(dds)$type.tissue == 'nLu'])
-"
+
 Plot dispersion estimates
 "
 plotDispEsts(dds)
