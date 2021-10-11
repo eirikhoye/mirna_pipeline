@@ -10,11 +10,13 @@ output:
       collapsed: false
       smooth_scroll: false
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
 ```{R message=FALSE, warning=FALSE}
-source('/Users/eirikhoy/Dropbox/projects/mirna_pipeline/scripts/deseq_functions.R')
+project_dir <- '/path/to/project/'
+
+source(paste(project_dir, 'scripts/deseq_functions.R', sep=""))
 ```
 
 ```{R message=FALSE, warning=FALSE}
@@ -40,52 +42,21 @@ p.Threshold   <- 0.05      # False Discovery Rate threshold
 Load MirGeneDB metadata
 "
 
-MirGeneDB_info <- read_delim('/Users/eirikhoy/Dropbox/projects/comet_analysis/data/hsa_MirGeneDB_to_miRBase.csv', delim = ';')
+MirGeneDB_info <- read_delim(paste(project_dir, 'data/hsa_MirGeneDB_to_miRBase.csv', sep=""), delim = ';')
 MirGeneDB_info <- MirGeneDB_info %>% filter(!grepl("-v[2-9]", MirGeneDB_ID)) # keep only -v1
 MirGeneDB_info$MirGeneDB_ID <- str_replace_all(MirGeneDB_info$MirGeneDB_ID, "-v1", "")
 ```
-
-
-
-
-# Functions
-
-```{R DESeq2 object function, message=FALSE, warning=FALSE}
-
-
-
-```
-
-```{R DESeq2 results function, message=FALSE, warning=FALSE}
-
-
-```
-
-```{R DESeq2 signature miRNA kable list function, message=FALSE, warning=FALSE}
-
-
-```
-
-
-```{R Function Volcano Plot, echo=FALSE, message=FALSE, warning=FALSE}
-
-```
-
-```{R Function Expression Plot, echo=FALSE, message=FALSE, warning=FALSE}
-
-```
-
 
 ```{r}
 "
 Load Data
 "
 # Read the sample information into a data frame
-sampleinfo <- read_csv("~/Dropbox/projects/comet_analysis/data/sample_info_tutorial.csv")
+sampleinfo <- read_csv(paste(project_dir, "data/sample_info_tutorial.csv", sep=""))
 sampleinfo <- sampleinfo %>% filter(qc_report == 'keep') # keep only samples that passed qc
 
 # Read the data into R
-seqdata <- read_delim("/Users/eirikhoy/Dropbox/projects/mirna_pipeline/mirge_output/miRge.2021-09-01_15-21-59/miR.Counts.csv", delim = ',')
+seqdata <- read_delim(paste(project_dir, "mirge_output/miRge.2021-09-01_15-21-59/miR.Counts.csv", sep=""), delim = ',')
 
 # Format the data
 countdata <- seqdata %>%
