@@ -89,6 +89,8 @@ Lets give an example using the FASTQ files in fastq_toy directory, using this st
 <img src="/images/study_design.png" width="350" title="Study Design">
 </p>
 
+Some toy fastq files as well as the singularity containers can be downloaded from this link:
+https://drive.google.com/drive/folders/1u-9NQ5rB9rbB_hzTWpNL8n1S2YXGyX6M?usp=sharing
 
 First things first, lets do QC on these samples with miRTrace! miRTrace takes raw FASTQ files as input and outputs nicely formatted QC reports, and will also assess potential contamination.
 
