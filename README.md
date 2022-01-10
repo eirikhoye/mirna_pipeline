@@ -12,8 +12,9 @@ Integrates both public repositories and own smallRNA-seq data. Quality control w
 miRTrace [Genome Biology (2018)](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1588-9). 
 > Kang W; Eldfjell Y; Fromm B; Estivill X; Biryukova I; Friedländer MR, 2018. miRTrace reveals the organismal origins of microRNA sequencing data. Genome Biol 19(1):213
 
-miRge3.0 [bioRxiv (2021)](https://www.biorxiv.org/content/10.1101/2021.01.18.427129v1). 
-> Patil HP; Halushka MR miRge3.0: a comprehensive microRNA and tRF sequencing analysis pipeline. bioRxiv 2021.01.18.427129
+miRge3.0 [NAR Genomics and Bioinformatics (2021)](https://academic.oup.com/nargab/article/3/3/lqab068/6325159). 
+> Arun H Patil, Marc K Halushka, miRge3.0: a comprehensive microRNA and tRF sequencing analysis pipeline, NAR Genomics and Bioinformatics, Volume 3, Issue 3, September 2021, lqab068, https://doi.org/10.1093/nargab/lqab068
+
 
 
 
